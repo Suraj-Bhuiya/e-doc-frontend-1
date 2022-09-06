@@ -8,6 +8,7 @@ import {
   Image,
   Keyboard,
 } from 'react-native'
+import { Button } from '@ui-kitten/components'
 import Svg, { Path } from 'react-native-svg'
 import { styles } from './Profile.styles'
 import { useNavigation, useRoute } from '@react-navigation/native'
@@ -15,9 +16,15 @@ import IonIcon from 'react-native-vector-icons/Ionicons'
 import MaterialCommunityIcon from 'react-native-vector-icons/MaterialCommunityIcons'
 import AvatarImg from '../../assets/favicon.png'
 
-const Profile = () => {
+const Profile = ({ login, logout }) => {
   const navigation = useNavigation()
   const route = useRoute()
+
+  const handle_logout = () => {
+    logout()
+    // navigation.navigate('Landing')
+  }
+
   return (
     <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
       <View style={styles.wrapper}>
@@ -37,11 +44,33 @@ const Profile = () => {
             ></Path>
           </Svg>
           <View style={styles.avatarWrapper}>
-            <Image style={styles.avatar} source={AvatarImg} />
+            <Image
+              style={styles.avatar}
+              source={
+                login?.user?.url
+                  ? {
+                      uri: login?.user?.url,
+                    }
+                  : AvatarImg
+              }
+            />
           </View>
         </View>
-        <Text style={styles.name}>Alay Naru</Text>
-        <Text style={styles.profession}>Profession</Text>
+        <Text style={styles.name}>{login?.user?.name}</Text>
+        <Text style={styles.profession}>
+          {login?.user?.profession || 'profession'}
+        </Text>
+        <View style={styles.content}>
+          <Button
+            onPress={() => handle_logout()}
+            size="large"
+            style={styles.logoutBtn}
+            status="danger"
+          >
+            Log out
+          </Button>
+        </View>
+
         <View style={styles.navigation}>
           <View style={styles.navigationLeft}>
             <IonIcon

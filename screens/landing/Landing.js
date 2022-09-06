@@ -37,7 +37,7 @@ const Landing = () => {
         <Button
           size="giant"
           style={styles.ctaBtn}
-          onPress={() => navigation.navigate('Home')}
+          onPress={() => navigation.navigate('Login')}
         >
           <Text>Get Started</Text>
         </Button>

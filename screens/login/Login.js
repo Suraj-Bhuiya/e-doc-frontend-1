@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import {
   View,
   Text,
@@ -12,9 +12,47 @@ import { useNavigation } from '@react-navigation/native'
 import Svg, { Path } from 'react-native-svg'
 import loginIllus from '../../assets/login.png'
 import { Input, Button } from '@ui-kitten/components'
+import { useEffect } from 'react'
+import AsyncStorage from '@react-native-async-storage/async-storage'
 
-const Login = () => {
+const Login = ({ login, do_login, set_reload_login }) => {
   const navigation = useNavigation()
+
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+
+  useEffect(() => {
+    if (login.token) {
+      navigation.navigate('Home')
+    }
+  }, [login])
+
+  useEffect(() => {
+    const getLocalStorage = async () => {
+      try {
+        const token = await AsyncStorage.getItem('E_DOC_TOKEN')
+        if (token) {
+          const loginData = await AsyncStorage.getItem('E_DOC_LOGIN')
+          console.log(token, 'FORM LOGIN')
+          set_reload_login({ token, ...JSON.parse(loginData) })
+          navigation.navigate('Home')
+        }
+      } catch (e) {
+        console.error(e)
+      }
+    }
+
+    getLocalStorage()
+  }, [])
+
+  const handle_login = () => {
+    console.log('LOGIN TRIGGERED', email, password)
+    do_login({
+      email,
+      password,
+    })
+  }
+
   return (
     <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
       <ScrollView>
@@ -45,14 +83,22 @@ const Login = () => {
               label={() => <Text style={styles.inputLabel}>E-mail</Text>}
               size="large"
               keyboardType="email-address"
+              value={email}
+              onChangeText={(text) => setEmail(text)}
             />
             <Input
               style={styles.input}
               label={() => <Text style={styles.inputLabel}>Password</Text>}
               size="large"
               secureTextEntry={true}
+              value={password}
+              onChangeText={(text) => setPassword(text)}
             />
-            <Button style={styles.btn} size="large">
+            <Button
+              onPress={() => handle_login()}
+              style={styles.btn}
+              size="large"
+            >
               Login
             </Button>
             <Text style={styles.sub}>

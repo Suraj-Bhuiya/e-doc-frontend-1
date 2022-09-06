@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import {
   View,
   Text,
@@ -13,8 +13,31 @@ import Svg, { Path } from 'react-native-svg'
 import signIllus from '../../assets/signup.png'
 import { Input, Button } from '@ui-kitten/components'
 
-const Signup = () => {
+const Signup = ({ login, signup }) => {
   const navigation = useNavigation()
+
+  const [name, setName] = useState('')
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+  const [confirmPassword, setConfirmPassword] = useState('')
+
+  useEffect(() => {
+    if (login.token) {
+      navigation.navigate('Home')
+    }
+  }, [login])
+
+  const handle_singup = () => {
+    if (password === confirmPassword) {
+      signup({
+        name,
+        email,
+        password,
+        confirmPassword,
+      })
+    }
+  }
+
   return (
     <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
       <ScrollView>
@@ -44,18 +67,24 @@ const Signup = () => {
               style={styles.input}
               label={() => <Text style={styles.inputLabel}>Full Name</Text>}
               size="large"
+              value={name}
+              onChangeText={(text) => setName(text)}
             />
             <Input
               style={styles.input}
               label={() => <Text style={styles.inputLabel}>E-mail</Text>}
               size="large"
               keyboardType="email-address"
+              value={email}
+              onChangeText={(text) => setEmail(text)}
             />
             <Input
               style={styles.input}
               label={() => <Text style={styles.inputLabel}>Password</Text>}
               size="large"
               secureTextEntry={true}
+              value={password}
+              onChangeText={(text) => setPassword(text)}
             />
             <Input
               style={styles.input}
@@ -64,8 +93,14 @@ const Signup = () => {
               )}
               size="large"
               secureTextEntry={true}
+              value={confirmPassword}
+              onChangeText={(text) => setConfirmPassword(text)}
             />
-            <Button style={styles.btn} size="large">
+            <Button
+              onPress={() => handle_singup()}
+              style={styles.btn}
+              size="large"
+            >
               Sign Up
             </Button>
             <Text style={styles.sub}>

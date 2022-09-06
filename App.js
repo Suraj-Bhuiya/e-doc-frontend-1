@@ -1,5 +1,5 @@
 import { StatusBar } from 'expo-status-bar'
-import { TouchableWithoutFeedback, Keyboard, Text } from 'react-native'
+import { TouchableWithoutFeedback, Keyboard, Text, View } from 'react-native'
 import { mapping, light as lightTheme } from '@eva-design/eva'
 // import { Button, Layout } from '@ui-kitten/components';
 import { ApplicationProvider } from '@ui-kitten/components'
@@ -9,10 +9,10 @@ import Login from './screens/login/Login'
 import Signup from './screens/signup/Signup'
 import RootNavigation from './navigation/RootNavigation'
 import * as Font from 'expo-font'
-import AppLoading from 'expo-app-loading'
-// import { AppLoading } from 'expo'
+import { Provider } from 'react-redux'
+import store from './store'
 
-export default function App() {
+const App = () => {
   const [fontsLoaded, setFontsLoaded] = useState(false)
 
   useEffect(() => {
@@ -35,14 +35,18 @@ export default function App() {
 
   if (fontsLoaded) {
     return (
-      <ApplicationProvider mapping={mapping} theme={lightTheme}>
-        <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
-          <RootNavigation />
-        </TouchableWithoutFeedback>
-      </ApplicationProvider>
+      <Provider store={store}>
+        <ApplicationProvider mapping={mapping} theme={lightTheme}>
+          <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
+            <RootNavigation />
+          </TouchableWithoutFeedback>
+        </ApplicationProvider>
+      </Provider>
     )
   } else {
     return null
     // <Text>Hello</Text>
   }
 }
+
+export default App

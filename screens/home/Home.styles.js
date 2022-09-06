@@ -22,12 +22,16 @@ export const styles = StyleSheet.create({
 
   avatarWrapper: {
     elevation: 6,
-    width: 50,
-    height: 50,
+    width: 70,
+    height: 70,
     borderRadius: 100,
     borderWidth: 2,
     borderColor: '#fff',
     overflow: 'hidden',
+  },
+  avatar: {
+    width: '100%',
+    height: '100%',
   },
 
   name: {
@@ -97,11 +101,82 @@ export const styles = StyleSheet.create({
     fontFamily: 'MontserratAlternates-LightItalic',
   },
 
+  uploadModalWrapper: {
+    height: '100%',
+    width: '100%',
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    zIndex: 11,
+  },
+  uploadModal: {
+    backgroundColor: '#fff',
+    width: '100%',
+    height: '40%',
+    position: 'absolute',
+    bottom: 0,
+    left: 0,
+    padding: 20,
+    display: 'flex',
+    flexDirection: 'column',
+    // justifyContent: 'center',
+    alignItems: 'center',
+    borderTopLeftRadius: 40,
+    borderTopRightRadius: 40,
+  },
+
+  uploadModalInner: {
+    width: '100%',
+    height: '100%',
+    display: 'flex',
+    flexDirection: 'column',
+    // justifyContent: 'center',
+    alignItems: 'center',
+  },
+
+  bar: {
+    backgroundColor: '#c1c1c1',
+    width: '40%',
+    height: 6,
+    borderRadius: 20,
+    marginBottom: 20,
+  },
+  h2: {
+    // color: 'rgb(143, 155, 179)',
+    fontSize: 20,
+    fontFamily: 'MontserratAlternates-SemiBold',
+    alignSelf: 'flex-start',
+    marginBottom: 20,
+  },
+  inputLabel: {
+    color: 'rgb(143, 155, 179)',
+    fontSize: 15,
+    fontFamily: 'MontserratAlternates-SemiBold',
+  },
+  fileName: {
+    marginTop: 16,
+    color: 'rgb(143, 155, 179)',
+    fontSize: 15,
+    fontFamily: 'MontserratAlternates-MediumItalic',
+    alignSelf: 'flex-start',
+  },
+
+  chooseFileBtn: {
+    marginVertical: 10,
+    alignSelf: 'flex-start',
+  },
+  uploadBtn: {
+    width: '100%',
+    borderRadius: 40,
+    marginTop: 30,
+  },
+
   navigation: {
     position: 'absolute',
     bottom: 0,
     left: 0,
-    zIndex: 100,
+    zIndex: 10,
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'space-between',

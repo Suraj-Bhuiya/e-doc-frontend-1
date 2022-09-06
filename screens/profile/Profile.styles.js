@@ -39,6 +39,18 @@ export const styles = StyleSheet.create({
     fontSize: 15,
     fontFamily: 'MontserratAlternates-Italic',
   },
+
+  content: {
+    paddingHorizontal: 40,
+    marginTop: 40,
+    width: '100%',
+  },
+
+  logoutBtn: {
+    width: '100%',
+    borderRadius: 30,
+    elevation: 5,
+  },
   navigation: {
     position: 'absolute',
     bottom: 0,
