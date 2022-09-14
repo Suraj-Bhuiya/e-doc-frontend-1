@@ -22,7 +22,7 @@ const Profile = ({ login, logout }) => {
 
   const handle_logout = () => {
     logout()
-    // navigation.navigate('Landing')
+    navigation.navigate('Landing')
   }
 
   return (
@@ -54,6 +54,7 @@ const Profile = ({ login, logout }) => {
                   : AvatarImg
               }
             />
+            <View>h</View>
           </View>
         </View>
         <Text style={styles.name}>{login?.user?.name}</Text>

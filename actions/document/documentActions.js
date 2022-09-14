@@ -1,5 +1,5 @@
 import UNIVERSAL from '../../config/config'
-import { getStorage, ref, uploadBytes } from 'firebase/storage'
+import { getDownloadURL, getStorage, ref, uploadBytes } from 'firebase/storage'
 import {
   SET_USER_DOCUMENTS,
   SET_CURRENT_USER_DOCUMENTS,
@@ -7,7 +7,7 @@ import {
 
 export function get_user_documents(uid, login, other = false) {
   return (dispatch) => {
-    return fetch(UNIVERSAL.BASEURL + `/api/edocs/${uid}`, {
+    return fetch(UNIVERSAL.BASEURL + `/api/edocs/uid/${uid}`, {
       method: 'GET',
       headers: {
         Accept: 'application/json',
@@ -37,11 +37,21 @@ export function upload_document(doc, login) {
   return (dispatch) => {
     if (doc.file !== '') {
       const storage = getStorage()
-      const storageRef = ref(storage, `${login.user.name}/doc.name`)
+      const storageRef = ref(
+        storage,
+        `${login.user.name}/${doc.name}.${doc.file.mimeType.split('/')[1]}`
+      )
+
+      // const blob = getBlob(doc.file.uri)
+      // console.log(blob)
 
       // 'file' comes from the Blob or File API
-      uploadBytes(storageRef, doc.file).then((url) => {
-        dispatch(upload_document_api(doc, login, url))
+      // console.log(blob)
+      uploadBytes(storageRef, doc.blob).then(() => {
+        getDownloadURL(storageRef).then((url) => {
+          console.log('URL', url)
+          dispatch(upload_document_api(doc, login, url))
+        })
       })
     }
   }

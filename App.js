@@ -11,12 +11,15 @@ import RootNavigation from './navigation/RootNavigation'
 import * as Font from 'expo-font'
 import { Provider } from 'react-redux'
 import store from './store'
+import { firebaseConfig } from './config/firebaseConfig'
+import { initializeApp } from 'firebase/app'
 
 const App = () => {
   const [fontsLoaded, setFontsLoaded] = useState(false)
 
   useEffect(() => {
     loadFonts()
+    initializeApp(firebaseConfig)
   }, [])
 
   const loadFonts = async () => {

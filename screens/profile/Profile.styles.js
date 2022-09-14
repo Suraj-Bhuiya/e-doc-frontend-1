@@ -27,6 +27,13 @@ export const styles = StyleSheet.create({
     borderWidth: 3,
   },
 
+  editIcon = {
+    position:'absolute',
+right: 0,
+
+boto    
+  }
+
   avatar: {
     width: '100%',
     height: '100%',

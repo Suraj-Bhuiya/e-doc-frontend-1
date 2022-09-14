@@ -18,6 +18,7 @@ import {
 } from '../../constants/login/loginConstants'
 import UNIVERSAL from '../../config/config'
 import AsyncStorage from '@react-native-async-storage/async-storage'
+import { set_current_user_documents } from '../document/documentActions'
 
 // export function signup(user) {
 //   return (dispatch) => {
@@ -107,6 +108,7 @@ export function do_login(user) {
       .then((response) => response.json())
       .then((responseJson) => {
         if (responseJson.status === 'success') {
+          console.log('Login Data', responseJson)
           dispatch(set_login(responseJson))
 
           //   dispatch(get_user_cart(responseJson.data.user))
@@ -131,6 +133,7 @@ const setLoginData = async (payload) => {
 
 export function set_login(payload) {
   setLoginData(payload)
+  set_current_user_documents(payload.data.user.edocs)
   //   localStorage.setItem('megastore_token', payload.token)
   //   localStorage.setItem('megastore_login', JSON.stringify(payload.user))
 
@@ -141,6 +144,8 @@ export function set_login(payload) {
 }
 
 export function set_reload_login(payload) {
+  console.log(payload, 'PAYLOAD')
+  set_current_user_documents(payload.edocs)
   return {
     type: RELOAD_LOGIN,
     payload: payload,

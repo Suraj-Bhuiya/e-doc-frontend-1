@@ -73,39 +73,39 @@ const RootNavigation = ({ login, set_reload_login }) => {
           <Screen name="Profile" children={() => <ProfileContainer />} />
         </Navigator>
         {/* <View style={styles.navigation}>
-            <View style={styles.navigationLeft}>
-              <IonIcon
-                color="#000"
-                size={30}
-                name="home-outline"
-                onPress={() => navigation.navigate('Home')}
-              />
-              <IonIcon
-                color="#aaaaaa"
-                size={30}
-                name="search-outline"
-                onPress={() => navigation.navigate('Search')}
-              />
+          <View style={styles.navigationLeft}>
+            <IonIcon
+              color="#000"
+              size={30}
+              name="home-outline"
+              onPress={() => navigation.navigate('Home')}
+            />
+            <IonIcon
+              color="#aaaaaa"
+              size={30}
+              name="search-outline"
+              onPress={() => navigation.navigate('Search')}
+            />
+          </View>
+          <TouchableHighlight onPress={() => null}>
+            <View style={styles.navigationCenter}>
+              <IonIcon color="#fff" size={30} name="add" />
             </View>
-            <TouchableHighlight onPress={() => null}>
-              <View style={styles.navigationCenter}>
-                <IonIcon color="#fff" size={30} name="add" />
-              </View>
-            </TouchableHighlight>
+          </TouchableHighlight>
 
-            <View style={styles.navigationRight}>
-              <Pressable>
-                <IonIcon color="#aaaaaa" size={30} name="chatbox-outline" />
-              </Pressable>
-              <MaterialCommunityIcon
-                color="#aaaaaa"
-                size={30}
-                name="account-outline"
-                onPress={() => navigation.navigate('Profile')}
-              />
-            </View>
+          <View style={styles.navigationRight}>
+            <Pressable>
+              <IonIcon color="#aaaaaa" size={30} name="chatbox-outline" />
+            </Pressable>
+            <MaterialCommunityIcon
+              color="#aaaaaa"
+              size={30}
+              name="account-outline"
+              onPress={() => navigation.navigate('Profile')}
+            />
           </View>
         </View> */}
+        {/* </View> */}
       </NavigationContainer>
     )
   } else {

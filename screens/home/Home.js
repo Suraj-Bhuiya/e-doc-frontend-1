@@ -21,8 +21,9 @@ import 'react-native-get-random-values'
 import { v4 as uuid } from 'uuid'
 import * as DocumentPicker from 'expo-document-picker'
 
-const Home = ({ login }) => {
+const Home = ({ login, document, upload_document, delete_document }) => {
   const [uploadModal, setUploadModal] = useState(false)
+  const [docName, setDocName] = useState('')
   const [file, setFile] = useState('')
 
   const navigation = useNavigation()
@@ -43,6 +44,28 @@ const Home = ({ login }) => {
       console.warn(err)
     }
   }, [])
+
+  const getBlob = async (uri) => {
+    const response = await fetch(uri)
+    const blob = await response.blob()
+
+    return blob
+  }
+
+  const handle_upload_document = async () => {
+    const blob = await getBlob(file.uri)
+    const doc = {
+      name: docName,
+      file: file,
+      blob: blob,
+    }
+
+    upload_document(doc, login)
+  }
+
+  useEffect(() => {
+    console.log(document)
+  }, [document])
 
   return (
     <TouchableWithoutFeedback
@@ -79,7 +102,7 @@ const Home = ({ login }) => {
           </View>
           <ScrollView>
             <View style={styles.cardList}>
-              {login?.user?.edocs?.map((item) => {
+              {document?.current_user_documents?.map((item) => {
                 return (
                   <Card key={uuid()} style={styles.card}>
                     <View style={styles.cardContent}>
@@ -102,7 +125,7 @@ const Home = ({ login }) => {
                             size={25}
                             color="#ff3d71"
                             name="trash"
-                            onPress={() => console.log('pressed')}
+                            onPress={() => delete_document(item._id, login)}
                           />
                         </TouchableOpacity>
                       </View>
@@ -132,6 +155,8 @@ const Home = ({ login }) => {
                 <View style={styles.bar} />
                 <Text style={styles.h2}>Upload a new Document</Text>
                 <Input
+                  value={docName}
+                  onChangeText={(text) => setDocName(text)}
                   label={() => (
                     <Text style={styles.inputLabel}>Document Name</Text>
                   )}
@@ -146,7 +171,11 @@ const Home = ({ login }) => {
                 >
                   Choose File
                 </Button>
-                <Button size="large" style={styles.uploadBtn}>
+                <Button
+                  onPress={() => handle_upload_document()}
+                  size="large"
+                  style={styles.uploadBtn}
+                >
                   Upload
                 </Button>
               </Pressable>

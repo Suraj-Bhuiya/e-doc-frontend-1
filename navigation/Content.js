@@ -21,6 +21,7 @@ const { Navigator, Screen } = createNativeStackNavigator()
 
 function Content(initialRoute) {
   const navigation = useNavigation()
+  // const route = useRoute()
 
   return (
     // <NavigationContainer>
@@ -29,46 +30,50 @@ function Content(initialRoute) {
         screenOptions={{
           headerShown: false,
         }}
-        initialRouteName="Home"
+        initialRouteName={initialRoute}
       >
+        <Screen name="Landing" children={() => <Landing />} />
+        <Screen name="Login" children={() => <LoginContainer />} />
+        <Screen name="Signup" children={() => <SignupContainer />} />
         <Screen name="Home" children={() => <HomeContainer />} />
         <Screen name="Search" children={() => <Search />} />
         <Screen name="Profile" children={() => <ProfileContainer />} />
       </Navigator>
-
-      <View style={styles.navigation}>
-        <View style={styles.navigationLeft}>
-          <IonIcon
-            color="#000"
-            size={30}
-            name="home-outline"
-            onPress={() => navigation.navigate('Home')}
-          />
-          <IonIcon
-            color="#aaaaaa"
-            size={30}
-            name="search-outline"
-            onPress={() => navigation.navigate('Search')}
-          />
-        </View>
-        <TouchableHighlight onPress={() => null}>
-          <View style={styles.navigationCenter}>
-            <IonIcon color="#fff" size={30} name="add" />
+      {useRoute().name !== 'Landing' && (
+        <View style={styles.navigation}>
+          <View style={styles.navigationLeft}>
+            <IonIcon
+              color="#000"
+              size={30}
+              name="home-outline"
+              onPress={() => navigation.navigate('Home')}
+            />
+            <IonIcon
+              color="#aaaaaa"
+              size={30}
+              name="search-outline"
+              onPress={() => navigation.navigate('Search')}
+            />
           </View>
-        </TouchableHighlight>
+          <TouchableHighlight onPress={() => null}>
+            <View style={styles.navigationCenter}>
+              <IonIcon color="#fff" size={30} name="add" />
+            </View>
+          </TouchableHighlight>
 
-        <View style={styles.navigationRight}>
-          <Pressable>
-            <IonIcon color="#aaaaaa" size={30} name="chatbox-outline" />
-          </Pressable>
-          <MaterialCommunityIcon
-            color="#aaaaaa"
-            size={30}
-            name="account-outline"
-            onPress={() => navigation.navigate('Profile')}
-          />
+          <View style={styles.navigationRight}>
+            <Pressable>
+              <IonIcon color="#aaaaaa" size={30} name="chatbox-outline" />
+            </Pressable>
+            <MaterialCommunityIcon
+              color="#aaaaaa"
+              size={30}
+              name="account-outline"
+              onPress={() => navigation.navigate('Profile')}
+            />
+          </View>
         </View>
-      </View>
+      )}
     </View>
     // </NavigationContainer>
   )
