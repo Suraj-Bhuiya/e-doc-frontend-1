@@ -6,7 +6,12 @@ import { styles } from './SplashScreen.styles'
 const SplashScreen = () => {
   return (
     <View style={styles.wrapper}>
-      <LottieView source={require('../../assets/locker.json')} autoPlay loop />
+      <LottieView
+        style={{ width: 200, height: 200 }}
+        source={require('../../assets/locker.json')}
+        autoPlay
+        loop
+      />
     </View>
   )
 }

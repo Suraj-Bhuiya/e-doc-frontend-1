@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState, useCallback } from 'react'
 
 import {
   Text,
@@ -7,23 +7,64 @@ import {
   View,
   Image,
   Keyboard,
+  TouchableOpacity,
+  Dimensions,
 } from 'react-native'
 import { Button } from '@ui-kitten/components'
 import Svg, { Path } from 'react-native-svg'
 import { styles } from './Profile.styles'
 import { useNavigation, useRoute } from '@react-navigation/native'
 import IonIcon from 'react-native-vector-icons/Ionicons'
+import MaterialIcon from 'react-native-vector-icons/MaterialIcons'
+import Octicons from 'react-native-vector-icons/Octicons'
 import MaterialCommunityIcon from 'react-native-vector-icons/MaterialCommunityIcons'
 import AvatarImg from '../../assets/favicon.png'
+import * as DocumentPicker from 'expo-document-picker'
 
-const Profile = ({ login, logout }) => {
+const Profile = ({ login, logout, upload_profile_pic }) => {
   const navigation = useNavigation()
   const route = useRoute()
+  const [file, setFile] = useState('')
 
   const handle_logout = () => {
     logout()
     navigation.navigate('Landing')
   }
+
+  const getBlob = async (uri) => {
+    const response = await fetch(uri)
+    const blob = await response.blob()
+
+    return blob
+  }
+
+  const handle_upload_profile_pic = async () => {
+    const blob = await getBlob(file.uri)
+    const doc = {
+      file: file,
+      blob: blob,
+    }
+    upload_profile_pic(doc, login)
+  }
+
+  const handle_set_doc = useCallback(async () => {
+    // try {
+    const response = await DocumentPicker.getDocumentAsync({
+      presentationStyle: 'fullScreen',
+    })
+    setFile(response)
+    console.log('helloasdsa')
+    handle_upload_profile_pic()
+    // const blob = await getBlob(file.uri)
+    // const doc = {
+    //   file: response,
+    //   blob: blob,
+    // }
+    // upload_profile_pic(doc, login)
+    // } catch (err) {
+    //   console.error(err, 'Form handle_set_doc')
+    // }
+  }, [])
 
   return (
     <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
@@ -31,7 +72,7 @@ const Profile = ({ login, logout }) => {
         <View style={styles.top}>
           <Svg
             id="visual"
-            viewBox="0 0 100% 960"
+            viewBox={`0 0 ${Dimensions.get('screen').width} 960`}
             width="100%"
             height="960"
             version="1.1"
@@ -47,21 +88,65 @@ const Profile = ({ login, logout }) => {
             <Image
               style={styles.avatar}
               source={
-                login?.user?.url
+                login?.user?.photo
                   ? {
-                      uri: login?.user?.url,
+                      uri: login?.user?.photo,
                     }
                   : AvatarImg
               }
             />
-            <View>h</View>
+            <TouchableOpacity>
+              <View style={styles.editIcon}>
+                <MaterialIcon
+                  size={20}
+                  color="#fff"
+                  name="edit"
+                  onPress={() => handle_set_doc()}
+                />
+              </View>
+            </TouchableOpacity>
           </View>
         </View>
         <Text style={styles.name}>{login?.user?.name}</Text>
         <Text style={styles.profession}>
           {login?.user?.profession || 'profession'}
         </Text>
+
         <View style={styles.content}>
+          <View style={styles.list}>
+            <TouchableOpacity
+              onPress={() => navigation.navigate('EditProfile')}
+            >
+              <View style={styles.listItem}>
+                <View style={styles.flex}>
+                  <MaterialIcon size={25} color="#666" name="edit" />
+                  <Text style={styles.listText}>Edit profile</Text>
+                </View>
+
+                <MaterialIcon size={40} color="#666" name="chevron-right" />
+              </View>
+            </TouchableOpacity>
+            <TouchableOpacity
+              onPress={() => navigation.navigate('ChooseLanguage')}
+            >
+              <View style={styles.listItem}>
+                <View style={styles.flex}>
+                  <MaterialIcon size={25} color="#666" name="language" />
+                  <Text style={styles.listText}>Change Language</Text>
+                </View>
+                <MaterialIcon size={40} color="#666" name="chevron-right" />
+              </View>
+            </TouchableOpacity>
+            <TouchableOpacity>
+              <View style={styles.listItem}>
+                <View style={styles.flex}>
+                  <Octicons size={25} color="#666" name="thumbsup" />
+                  <Text style={styles.listText}>Rate Us</Text>
+                </View>
+                <MaterialIcon size={40} color="#666" name="chevron-right" />
+              </View>
+            </TouchableOpacity>
+          </View>
           <Button
             onPress={() => handle_logout()}
             size="large"

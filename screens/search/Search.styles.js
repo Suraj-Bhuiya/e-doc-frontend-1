@@ -1,9 +1,10 @@
-import { StyleSheet, Dimensions } from 'react-native'
+import { StyleSheet, Dimensions, StatusBar } from 'react-native'
 
 export const styles = StyleSheet.create({
   wrapper: {
     height: '100%',
     display: 'flex',
+    // flex: 1,
     alignItems: 'center',
     width: '100%',
     // backgroundColor: '#598672',
@@ -23,7 +24,7 @@ export const styles = StyleSheet.create({
     right: 0,
   },
   searchBox: {
-    marginTop: 50,
+    marginTop: 30,
     width: '90%',
   },
   h1: {
@@ -40,6 +41,20 @@ export const styles = StyleSheet.create({
   },
   searchInput: {
     borderRadius: 50,
+  },
+  searchBtn: {
+    marginTop: 20,
+    borderRadius: 40,
+    width: '60%',
+    alignSelf: 'center',
+  },
+  backdrop: {
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+  },
+  modalText: {
+    fontSize: 18,
+    marginBottom: 15,
+    fontFamily: 'MontserratAlternates-Medium',
   },
 
   navigation: {

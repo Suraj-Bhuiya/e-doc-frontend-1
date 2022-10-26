@@ -3,9 +3,10 @@ import { getDownloadURL, getStorage, ref, uploadBytes } from 'firebase/storage'
 import {
   SET_USER_DOCUMENTS,
   SET_CURRENT_USER_DOCUMENTS,
+  SET_CURRENT_DOCUMENT,
 } from '../../constants/document/documentConstants'
 
-export function get_user_documents(uid, login, other = false) {
+export function get_user_documents(uid, login, other) {
   return (dispatch) => {
     return fetch(UNIVERSAL.BASEURL + `/api/edocs/uid/${uid}`, {
       method: 'GET',
@@ -18,6 +19,7 @@ export function get_user_documents(uid, login, other = false) {
       .then((response) => response.json())
       .then((responseJson) => {
         if (responseJson.status === 'success') {
+          console.log(responseJson.data)
           if (other) {
             dispatch(set_user_documents(responseJson.data.edocs))
           } else {
@@ -41,18 +43,21 @@ export function upload_document(doc, login) {
         storage,
         `${login.user.name}/${doc.name}.${doc.file.mimeType.split('/')[1]}`
       )
+      console.log
 
       // const blob = getBlob(doc.file.uri)
       // console.log(blob)
 
       // 'file' comes from the Blob or File API
       // console.log(blob)
-      uploadBytes(storageRef, doc.blob).then(() => {
-        getDownloadURL(storageRef).then((url) => {
-          console.log('URL', url)
-          dispatch(upload_document_api(doc, login, url))
+      uploadBytes(storageRef, doc.blob)
+        .then(() => {
+          getDownloadURL(storageRef).then((url) => {
+            console.log('URL', url)
+            dispatch(upload_document_api(doc, login, url))
+          })
         })
-      })
+        .catch((err) => console.log(err))
     }
   }
 }
@@ -120,6 +125,13 @@ export function set_user_documents(payload) {
 export function set_current_user_documents(payload) {
   return {
     type: SET_CURRENT_USER_DOCUMENTS,
+    payload: payload,
+  }
+}
+
+export function set_current_document(payload) {
+  return {
+    type: SET_CURRENT_DOCUMENT,
     payload: payload,
   }
 }

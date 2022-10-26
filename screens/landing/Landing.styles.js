@@ -43,7 +43,6 @@ export const styles = StyleSheet.create({
   ctaBtn: {
     width: '80%',
     borderRadius: 50,
-    elevation: 5,
-    fontFamily: 'MontserratAlternates-Medium',
+    // elevation: 5,
   },
 })

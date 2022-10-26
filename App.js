@@ -13,13 +13,26 @@ import { Provider } from 'react-redux'
 import store from './store'
 import { firebaseConfig } from './config/firebaseConfig'
 import { initializeApp } from 'firebase/app'
+import SplashScreen from './screens/splashScreen/SplashScreen'
+import i18n from './languages/i18n'
 
 const App = () => {
   const [fontsLoaded, setFontsLoaded] = useState(false)
+  const [isSplashScreen, setIsSpalshScreen] = useState(true)
 
   useEffect(() => {
     loadFonts()
     initializeApp(firebaseConfig)
+  }, [])
+
+  useEffect(() => {
+    const forSplashScreen = setTimeout(() => {
+      setIsSpalshScreen(false)
+    }, 3000)
+
+    return () => {
+      clearTimeout(forSplashScreen)
+    }
   }, [])
 
   const loadFonts = async () => {
@@ -36,7 +49,7 @@ const App = () => {
     setFontsLoaded(true)
   }
 
-  if (fontsLoaded) {
+  if (fontsLoaded && !isSplashScreen) {
     return (
       <Provider store={store}>
         <ApplicationProvider mapping={mapping} theme={lightTheme}>
@@ -47,7 +60,7 @@ const App = () => {
       </Provider>
     )
   } else {
-    return null
+    return <SplashScreen />
     // <Text>Hello</Text>
   }
 }

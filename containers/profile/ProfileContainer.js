@@ -6,6 +6,10 @@ import {
   set_reload_login,
   logout,
 } from '../../actions/login/loginActions'
+import {
+  upload_profile_pic,
+  set_language,
+} from '../../actions/user/userActions'
 import Profile from '../../screens/profile/Profile'
 
 const ProfileContainer = (props) => {
@@ -25,6 +29,12 @@ const mapDispatchToProps = (dispatch) => {
     // },
     set_reload_login: (user) => {
       dispatch(set_reload_login(user))
+    },
+    upload_profile_pic: (login, doc) => {
+      dispatch(upload_profile_pic(login, doc))
+    },
+    set_language: (lang) => {
+      dispatch(set_language(lang))
     },
     logout: () => {
       dispatch(logout())

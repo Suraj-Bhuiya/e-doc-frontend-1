@@ -56,7 +56,6 @@ import { set_current_user_documents } from '../document/documentActions'
 
 export function signup(user) {
   return (dispatch) => {
-    console.log(UNIVERSAL, 'Baseurl...')
     return fetch(UNIVERSAL.BASEURL + '/api/users/signup', {
       method: 'POST',
       headers: {
@@ -91,7 +90,6 @@ export function signup(user) {
 }
 
 export function do_login(user) {
-  console.log(user)
   return (dispatch) => {
     // dispatch(set_login_loader())
     return fetch(UNIVERSAL.BASEURL + '/api/users/login', {
@@ -111,6 +109,8 @@ export function do_login(user) {
           console.log('Login Data', responseJson)
           dispatch(set_login(responseJson))
 
+          dispatch(set_current_user_documents(responseJson.data.user.edocs))
+
           //   dispatch(get_user_cart(responseJson.data.user))
           //   dispatch(reset_user())
           //   history.push('/')
@@ -126,26 +126,26 @@ export function do_login(user) {
   }
 }
 
-const setLoginData = async (payload) => {
+export const setLoginToken = async (payload) => {
   await AsyncStorage.setItem('E_DOC_TOKEN', payload.token)
+}
+
+export const setLoginData = async (payload) => {
   await AsyncStorage.setItem('E_DOC_LOGIN', JSON.stringify(payload.data.user))
 }
 
 export function set_login(payload) {
+  setLoginToken(payload)
   setLoginData(payload)
-  set_current_user_documents(payload.data.user.edocs)
-  //   localStorage.setItem('megastore_token', payload.token)
-  //   localStorage.setItem('megastore_login', JSON.stringify(payload.user))
-
   return {
     type: LOGIN,
-    payload: { token: payload.token, user: payload.data.user },
+    payload: { token: payload.token, user: payload.data.user, language: 'en' },
   }
 }
 
 export function set_reload_login(payload) {
-  console.log(payload, 'PAYLOAD')
-  set_current_user_documents(payload.edocs)
+  console.log(payload.user.edocs, 'PAYLOAD')
+  set_current_user_documents(payload.user.edocs)
   return {
     type: RELOAD_LOGIN,
     payload: payload,

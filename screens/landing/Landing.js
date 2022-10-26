@@ -1,5 +1,5 @@
 import React from 'react'
-import { Text, View, Image } from 'react-native'
+import { Text, View, Image, Dimensions } from 'react-native'
 import { useNavigation } from '@react-navigation/native'
 import { styles } from './Landing.styles'
 import { Button } from '@ui-kitten/components'
@@ -13,7 +13,7 @@ const Landing = () => {
     <View style={styles.wrapper}>
       <Svg
         id="visual"
-        viewBox="0 0 100% 860"
+        viewBox={`0 0 ${Dimensions.get('screen').width} 860`}
         width="100%"
         height="860"
         version="1.1"

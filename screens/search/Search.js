@@ -5,19 +5,43 @@ import {
   View,
   Image,
   Keyboard,
+  Dimensions,
+  ScrollView,
+  KeyboardAvoidingView,
 } from 'react-native'
-import React from 'react'
+import { useTranslation } from 'react-i18next'
+import React, { useState } from 'react'
 import { styles } from './Search.styles'
 import Svg, { Path } from 'react-native-svg'
-import { Input } from '@ui-kitten/components'
+import { Button, Input, Modal, Card } from '@ui-kitten/components'
 import { useNavigation, useRoute } from '@react-navigation/native'
 import IonIcon from 'react-native-vector-icons/Ionicons'
 import MaterialCommunityIcon from 'react-native-vector-icons/MaterialCommunityIcons'
 import SearchIllus from '../../assets/search.png'
+import { useEffect } from 'react'
 
-const Search = () => {
+const Search = ({ login, document, get_user_documents }) => {
+  const [uid, setUid] = useState('')
   const navigation = useNavigation()
+  const [isModal, setIsModal] = useState(false)
   const route = useRoute()
+
+  const { t, i18n } = useTranslation()
+
+  const handle_get_documents = () => {
+    // let upperCaseUid = uid
+    // upperCaseUid = upperCaseUid.toUpperCase()
+    if (uid === '') {
+      setIsModal(true)
+    } else {
+      get_user_documents(uid.toUpperCase(), login, true)
+      navigation.navigate('SearchResult')
+    }
+  }
+
+  useEffect(() => {
+    i18n.changeLanguage(login.language)
+  }, [login.language])
 
   return (
     <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
@@ -25,7 +49,7 @@ const Search = () => {
         <View style={styles.top}>
           <Svg
             id="visual"
-            viewBox="0 0 100% 960"
+            viewBox={`0 0 ${Dimensions.get('screen').width} 960`}
             width="100%"
             height="960"
             version="1.1"
@@ -40,13 +64,22 @@ const Search = () => {
           <Image style={styles.searchImg} source={SearchIllus} />
         </View>
         <View style={styles.searchBox}>
-          <Text style={styles.h1}>Search </Text>
+          <Text style={styles.h1}>{t('search')}</Text>
           <Text style={styles.h2}>users by UID...</Text>
           <Input
             style={styles.searchInput}
             size="large"
             placeholder="eg : UXXXXX"
+            value={uid}
+            onChangeText={(text) => setUid(text)}
           />
+          <Button
+            // onPress={() => handle_get_documents()}
+
+            style={styles.searchBtn}
+          >
+            Search
+          </Button>
         </View>
         <View style={styles.navigation}>
           <View style={styles.navigationLeft}>
@@ -79,6 +112,18 @@ const Search = () => {
             />
           </View>
         </View>
+        <Modal
+          visible={isModal}
+          backdropStyle={styles.backdrop}
+          onBackdropPress={() => setIsModal(false)}
+        >
+          <Card disabled={true}>
+            <Text style={styles.modalText}>Please enter a valid UID</Text>
+            <Button style onPress={() => setIsModal(false)}>
+              OK
+            </Button>
+          </Card>
+        </Modal>
       </View>
     </TouchableWithoutFeedback>
   )

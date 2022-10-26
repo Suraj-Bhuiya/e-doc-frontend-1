@@ -3,7 +3,6 @@ import { StyleSheet, Dimensions } from 'react-native'
 export const styles = StyleSheet.create({
   wrapper: {
     height: '100%',
-
     display: 'flex',
     alignItems: 'center',
     width: '100%',
@@ -106,14 +105,14 @@ export const styles = StyleSheet.create({
     width: '100%',
     backgroundColor: 'rgba(0, 0, 0, 0.5)',
     position: 'absolute',
-    top: 0,
+    bottom: 0,
     left: 0,
     zIndex: 11,
   },
   uploadModal: {
     backgroundColor: '#fff',
     width: '100%',
-    height: '40%',
+    height: 380,
     position: 'absolute',
     bottom: 0,
     left: 0,

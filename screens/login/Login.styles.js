@@ -39,7 +39,7 @@ export const styles = StyleSheet.create({
   btn: {
     borderRadius: 50,
     marginBottom: 20,
-    elevation: 5,
+    // elevation: 5,
   },
   sub: {
     color: '#666',

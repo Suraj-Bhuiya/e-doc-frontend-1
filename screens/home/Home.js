@@ -9,29 +9,46 @@ import {
   TouchableWithoutFeedback,
   Keyboard,
   Pressable,
+  PermissionsAndroid,
+  Platform,
+  Alert,
 } from 'react-native'
 import { styles } from './Home.styles'
 import { useNavigation, useRoute } from '@react-navigation/native'
-import { Avatar, Input, Card, Button } from '@ui-kitten/components'
+import { Input, Card, Button } from '@ui-kitten/components'
 import AvatarImg from '../../assets/favicon.png'
-import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome'
+
 import IonIcon from 'react-native-vector-icons/Ionicons'
+import Octicons from 'react-native-vector-icons/Octicons'
 import MaterialCommunityIcon from 'react-native-vector-icons/MaterialCommunityIcons'
 import 'react-native-get-random-values'
 import { v4 as uuid } from 'uuid'
 import * as DocumentPicker from 'expo-document-picker'
+import moment from 'moment'
+import * as MediaLibrary from 'expo-media-library'
+import * as FileSystem from 'expo-file-system'
+import * as Permissions from 'expo-permissions'
 
-const Home = ({ login, document, upload_document, delete_document }) => {
+const Home = ({
+  login,
+  document,
+  upload_document,
+  delete_document,
+  get_user_documents,
+  set_current_document,
+}) => {
   const [uploadModal, setUploadModal] = useState(false)
   const [docName, setDocName] = useState('')
   const [file, setFile] = useState('')
+  const [filteredList, setFilteredList] = useState([])
+  const [searchWord, setSearchWord] = useState('')
 
   const navigation = useNavigation()
   const route = useRoute()
 
   useEffect(() => {
-    console.log(login, 'FROM HOME')
-  }, [login])
+    get_user_documents(login.user.uid, login)
+  }, [])
 
   const handle_set_doc = useCallback(async () => {
     try {
@@ -39,7 +56,6 @@ const Home = ({ login, document, upload_document, delete_document }) => {
         presentationStyle: 'fullScreen',
       })
       setFile(response)
-      console.log(response)
     } catch (err) {
       console.warn(err)
     }
@@ -63,10 +79,72 @@ const Home = ({ login, document, upload_document, delete_document }) => {
     upload_document(doc, login)
   }
 
-  useEffect(() => {
-    console.log(document)
-  }, [document])
+  const handle_doc_detail = (doc) => {
+    set_current_document(doc)
+    navigation.navigate('DocDetail')
+  }
 
+  useEffect(() => {
+    if (searchWord === '') {
+      setFilteredList(document.current_user_documents)
+    } else {
+      let tmp = document.current_user_documents
+      tmp = tmp.filter((doc) => doc.name.includes(searchWord))
+
+      setFilteredList(tmp)
+    }
+  }, [searchWord])
+
+  const downloadFile = (uri, name) => {
+    let fileUri = FileSystem.documentDirectory + `${name}.pdf`
+    FileSystem.downloadAsync(uri, fileUri)
+      .then(({ uri }) => {
+        saveFile(uri)
+      })
+      .catch((error) => {
+        console.error(error)
+      })
+  }
+
+  const saveFile = async (fileUri) => {
+    const { status } = await Permissions.askAsync(Permissions.CAMERA_ROLL)
+    if (status === 'granted') {
+      const asset = await MediaLibrary.createAssetAsync(fileUri)
+
+      await MediaLibrary.createAlbumAsync('Download', asset, false)
+    }
+  }
+
+  // const downloadFile = async (uri) => {
+  //   const fileUri = `${FileSystem.documentDirectory}filenami.pdf`
+  //   const downloadedFile = await FileSystem.downloadAsync(uri, fileUri)
+  //   if (downloadedFile.status === 200) {
+  //     // handleError()
+  //     const perm = await Permissions.askAsync(Permissions.MEDIA_LIBRARY)
+  //     if (perm.status != 'granted') {
+  //       return
+  //     }
+
+  //     try {
+  //       const asset = await MediaLibrary.createAssetAsync(downloadedFile.uri)
+  //       const album = await MediaLibrary.getAlbumAsync('Download')
+  //       if (album == null) {
+  //         await MediaLibrary.createAlbumAsync('Download', asset, false)
+  //       } else {
+  //         console.log('WORKING')
+  //         await MediaLibrary.addAssetsToAlbumAsync([asset], album, false)
+  //       }
+  //     } catch (e) {
+  //       // handleError(e)
+  //       console.log(e, downloadFile, 'ERROR')
+  //     }
+  //   }
+
+  //   if (downloadedFile.status != 200) {
+  //     // handleError()
+  //     console.log('ERROR')
+  //   }
+  // }
   return (
     <TouchableWithoutFeedback
       onPress={() => {
@@ -80,9 +158,9 @@ const Home = ({ login, document, upload_document, delete_document }) => {
             <Image
               style={styles.avatar}
               source={
-                login?.user?.url
+                login?.user?.photo
                   ? {
-                      uri: login?.user?.url,
+                      uri: login?.user?.photo,
                     }
                   : AvatarImg
               }
@@ -98,36 +176,44 @@ const Home = ({ login, document, upload_document, delete_document }) => {
               size="large"
               style={styles.searchInput}
               placeholder="Search by doc name"
+              value={searchWord}
+              onChangeText={(text) => setSearchWord(text)}
             />
           </View>
           <ScrollView>
             <View style={styles.cardList}>
-              {document?.current_user_documents?.map((item) => {
+              {filteredList?.map((item) => {
                 return (
-                  <Card key={uuid()} style={styles.card}>
+                  <Card
+                    key={uuid()}
+                    style={styles.card}
+                    onPress={() => handle_doc_detail(item)}
+                  >
                     <View style={styles.cardContent}>
                       <View style={styles.cardLeft}>
                         <Text style={styles.docName}>{item.name}</Text>
-                        <Text style={styles.docDate}>22 nov</Text>
+                        <Text style={styles.docDate}>
+                          {moment(item.createdAt).format('ll')}
+                        </Text>
                       </View>
                       <View style={styles.cardAction}>
-                        <TouchableOpacity>
-                          <FontAwesomeIcon
+                        <TouchableOpacity onPress={() => null}>
+                          <Octicons
                             style={{ marginRight: 15 }}
                             size={25}
                             color="#3366ff"
-                            name="edit"
-                            onPress={() => console.log('pressed')}
+                            name="download"
+                            onPress={() => downloadFile(item.url, item.name)}
                           />
                         </TouchableOpacity>
-                        <TouchableOpacity>
+                        {/* <TouchableOpacity>
                           <FontAwesomeIcon
                             size={25}
                             color="#ff3d71"
                             name="trash"
                             onPress={() => delete_document(item._id, login)}
                           />
-                        </TouchableOpacity>
+                        </TouchableOpacity> */}
                       </View>
                     </View>
                   </Card>

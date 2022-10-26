@@ -22,21 +22,29 @@ export const styles = StyleSheet.create({
     position: 'absolute',
     bottom: 15,
     alignSelf: 'center',
-    overflow: 'hidden',
-    borderColor: '#fff',
-    borderWidth: 3,
+    // overflow: 'hidden',
   },
 
-  editIcon = {
-    position:'absolute',
-right: 0,
-
-boto    
-  }
-
+  editIcon: {
+    position: 'absolute',
+    right: 0,
+    bottom: 10,
+    zIndex: 10,
+    width: 35,
+    height: 35,
+    backgroundColor: 'rgb(51, 102, 255)',
+    borderRadius: 100,
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    elevation: 2,
+  },
   avatar: {
-    width: '100%',
-    height: '100%',
+    width: 116,
+    height: 116,
+    borderRadius: 200,
+    borderColor: '#fff',
+    borderWidth: 3,
   },
   name: {
     fontSize: 20,
@@ -48,15 +56,51 @@ boto
   },
 
   content: {
-    paddingHorizontal: 40,
+    paddingHorizontal: 20,
     marginTop: 40,
     width: '100%',
   },
+  list: {
+    marginBottom: 30,
+  },
+  listItem: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    marginVertical: 5,
+    borderWidth: 1,
+    borderColor: '#cdcdcd',
+    paddingHorizontal: 10,
+    paddingVertical: 5,
+    borderRadius: 4,
+    // shadowColor: '#000',
+    // shadowOffset: {
+    //   width: 0,
+    //   height: 1,
+    // },
+    // shadowOpacity: 0.18,
+    // shadowRadius: 1,
+
+    // elevation: 1,
+  },
+  flex: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  listText: {
+    fontSize: 16,
+    color: '#444',
+    fontFamily: 'MontserratAlternates-Medium',
+    marginLeft: 10,
+  },
 
   logoutBtn: {
-    width: '100%',
+    width: '90%',
     borderRadius: 30,
-    elevation: 5,
+    // elevation: 5,
+    alignSelf: 'center',
   },
   navigation: {
     position: 'absolute',
