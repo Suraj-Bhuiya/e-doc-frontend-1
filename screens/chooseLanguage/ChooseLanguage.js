@@ -12,36 +12,37 @@ const ChooseLanguage = ({ login, set_language }) => {
   const [currentLanguage, setCurrentLanguage] = useState('en')
 
   return (
-    <SafeAreaView>
-      <View style={styles.wrapper}>
-        <View style={styles.topbar}>
-          <AntDesign
-            size={30}
-            name="arrowleft"
-            onPress={() => navigation.navigate('Profile')}
-          />
-          <Text style={styles.title}>Choose Language</Text>
-        </View>
-        <View style={styles.content}>
-          <View style={styles.list}>
-            <View style={styles.listItem}>
-              <Text style={styles.language}>English</Text>
-              <Radio
-                checked={login.language === 'en'}
-                onChange={(nextChecked) => set_language('en')}
-              />
-            </View>
-            <View style={styles.listItem}>
-              <Text style={styles.language}>Hindi</Text>
-              <Radio
-                checked={login.language === 'hi'}
-                onChange={(nextChecked) => set_language('hi')}
-              />
-            </View>
+    // <SafeAreaView>
+    <View style={styles.wrapper}>
+      <View style={styles.topbar}>
+        <AntDesign
+          size={30}
+          name="arrowleft"
+          onPress={() => navigation.navigate('Profile')}
+          style={{ color: '#fff' }}
+        />
+        <Text style={styles.title}>Choose Language</Text>
+      </View>
+      <View style={styles.content}>
+        <View style={styles.list}>
+          <View style={styles.listItem}>
+            <Text style={styles.language}>English</Text>
+            <Radio
+              checked={login.language === 'en'}
+              onChange={(nextChecked) => set_language('en')}
+            />
+          </View>
+          <View style={styles.listItem}>
+            <Text style={styles.language}>Hindi</Text>
+            <Radio
+              checked={login.language === 'hi'}
+              onChange={(nextChecked) => set_language('hi')}
+            />
           </View>
         </View>
       </View>
-    </SafeAreaView>
+    </View>
+    // </SafeAreaView>
   )
 }
 

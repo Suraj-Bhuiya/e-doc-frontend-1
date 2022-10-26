@@ -18,7 +18,7 @@ import IonIcon from 'react-native-vector-icons/Ionicons'
 import MaterialIcon from 'react-native-vector-icons/MaterialIcons'
 import Octicons from 'react-native-vector-icons/Octicons'
 import MaterialCommunityIcon from 'react-native-vector-icons/MaterialCommunityIcons'
-import AvatarImg from '../../assets/favicon.png'
+import AvatarImg from '../../assets/avatar.png'
 import * as DocumentPicker from 'expo-document-picker'
 
 const Profile = ({ login, logout, upload_profile_pic }) => {
@@ -109,7 +109,7 @@ const Profile = ({ login, logout, upload_profile_pic }) => {
         </View>
         <Text style={styles.name}>{login?.user?.name}</Text>
         <Text style={styles.profession}>
-          {login?.user?.profession || 'profession'}
+          {login?.user?.profession || '....'}
         </Text>
 
         <View style={styles.content}>

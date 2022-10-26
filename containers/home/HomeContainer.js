@@ -6,6 +6,7 @@ import {
   delete_document,
   get_user_documents,
   set_current_document,
+  set_upload_status,
 } from '../../actions/document/documentActions'
 import Home from '../../screens/home/Home'
 
@@ -39,6 +40,9 @@ const mapDispatchToProps = (dispatch) => {
     },
     set_current_document: (doc) => {
       dispatch(set_current_document(doc))
+    },
+    set_upload_status: (status) => {
+      dispatch(set_upload_status(status))
     },
   }
 }

@@ -16,7 +16,7 @@ const DocDetail = ({ login, document, delete_document }) => {
   }, [document])
 
   const handle_delete_doc = () => {
-    delete_document(document?.current_document?.id, login)
+    delete_document(document?.current_document?._id, login)
     navigation.navigate('Home')
   }
 

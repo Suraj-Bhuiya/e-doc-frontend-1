@@ -74,8 +74,7 @@ const Search = ({ login, document, get_user_documents }) => {
             onChangeText={(text) => setUid(text)}
           />
           <Button
-            // onPress={() => handle_get_documents()}
-
+            onPress={() => handle_get_documents()}
             style={styles.searchBtn}
           >
             Search

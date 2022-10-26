@@ -2,12 +2,14 @@ import {
   SET_USER_DOCUMENTS,
   SET_CURRENT_USER_DOCUMENTS,
   SET_CURRENT_DOCUMENT,
+  SET_UPLOAD_STATUS,
 } from '../../constants/document/documentConstants'
 
 const initial_state = {
   other_user_documents: [],
   current_user_documents: [],
   current_document: '',
+  upload_status: '',
 }
 
 export default function reducer(state = initial_state, action) {
@@ -18,6 +20,8 @@ export default function reducer(state = initial_state, action) {
       return (state = { ...state, current_user_documents: action.payload })
     case SET_CURRENT_DOCUMENT:
       return (state = { ...state, current_document: action.payload })
+    case SET_UPLOAD_STATUS:
+      return (state = { ...state, upload_status: action.payload })
     default:
       return state
   }

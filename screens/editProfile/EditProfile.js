@@ -38,6 +38,7 @@ const EditProfile = ({ login, update_profile }) => {
             size={30}
             name="arrowleft"
             onPress={() => navigation.navigate('Profile')}
+            style={{ color: '#fff' }}
           />
           <Text style={styles.title}>Edit Profile</Text>
         </View>

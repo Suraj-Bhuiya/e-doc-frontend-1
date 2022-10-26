@@ -45,6 +45,7 @@ export const styles = StyleSheet.create({
     borderRadius: 200,
     borderColor: '#fff',
     borderWidth: 3,
+    backgroundColor: '#fff',
   },
   name: {
     fontSize: 20,

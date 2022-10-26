@@ -31,6 +31,7 @@ export const styles = StyleSheet.create({
   avatar: {
     width: '100%',
     height: '100%',
+    backgroundColor: '#fff',
   },
 
   name: {
@@ -97,7 +98,8 @@ export const styles = StyleSheet.create({
 
   docDate: {
     fontSize: 15,
-    fontFamily: 'MontserratAlternates-LightItalic',
+    fontFamily: 'MontserratAlternates-Regular',
+    color: '#757575',
   },
 
   uploadModalWrapper: {
@@ -169,6 +171,38 @@ export const styles = StyleSheet.create({
     width: '100%',
     borderRadius: 40,
     marginTop: 30,
+  },
+
+  uploadMessage: {
+    width: 300,
+    // height: 250,
+    backgroundColor: '#fff',
+    borderColor: '#eee',
+    // borderWidth: 2,
+    padding: 20,
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center',
+    elevation: 2,
+    borderRadius: 10,
+  },
+
+  uploadText: {
+    fontSize: 18,
+    color: '#757575',
+    fontFamily: 'MontserratAlternates-SemiBold',
+    marginBottom: 15,
+    marginTop: 10,
+  },
+  uploadMessageBackdrop: {
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+  },
+
+  noDoc: {
+    width: '100%',
+    alignItems: 'center',
+    marginTop: 50,
   },
 
   navigation: {

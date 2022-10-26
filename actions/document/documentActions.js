@@ -4,6 +4,7 @@ import {
   SET_USER_DOCUMENTS,
   SET_CURRENT_USER_DOCUMENTS,
   SET_CURRENT_DOCUMENT,
+  SET_UPLOAD_STATUS,
 } from '../../constants/document/documentConstants'
 
 export function get_user_documents(uid, login, other) {
@@ -37,6 +38,7 @@ export function get_user_documents(uid, login, other) {
 
 export function upload_document(doc, login) {
   return (dispatch) => {
+    dispatch(set_upload_status('uploading'))
     if (doc.file !== '') {
       const storage = getStorage()
       const storageRef = ref(
@@ -57,7 +59,10 @@ export function upload_document(doc, login) {
             dispatch(upload_document_api(doc, login, url))
           })
         })
-        .catch((err) => console.log(err))
+        .catch((err) => {
+          console.log(err)
+          dispatch(set_upload_status('error'))
+        })
     }
   }
 }
@@ -80,13 +85,16 @@ export function upload_document_api(doc, login, url) {
       .then((responseJson) => {
         if (responseJson.status === 'success') {
           // dispatch(set_user_documents(responseJson.data))
+          console.log('SUCESS')
           dispatch(get_user_documents(login.user.uid, login))
+          dispatch(set_upload_status('uploaded'))
         } else {
           console.log(responseJson)
         }
       })
       .catch((error) => {
         console.log(error)
+        dispatch(set_upload_status('error'))
       })
   }
 }
@@ -132,6 +140,13 @@ export function set_current_user_documents(payload) {
 export function set_current_document(payload) {
   return {
     type: SET_CURRENT_DOCUMENT,
+    payload: payload,
+  }
+}
+
+export function set_upload_status(payload) {
+  return {
+    type: SET_UPLOAD_STATUS,
     payload: payload,
   }
 }
