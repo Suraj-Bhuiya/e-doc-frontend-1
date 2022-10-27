@@ -5,6 +5,7 @@ import english from './english.json'
 import hindi from './hindi.json'
 
 i18n.use(initReactI18next).init({
+  compatibilityJSON: 'v3',
   lng: 'en',
   resources: {
     en: english,

@@ -7,7 +7,9 @@ import {
   Keyboard,
   TouchableWithoutFeedback,
   Dimensions,
+  Modal,
 } from 'react-native'
+import LottieView from 'lottie-react-native'
 import { styles } from './Login.styles'
 import { useNavigation } from '@react-navigation/native'
 import Svg, { Path } from 'react-native-svg'
@@ -16,15 +18,24 @@ import { Input, Button } from '@ui-kitten/components'
 import { useEffect } from 'react'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 
-const Login = ({ login, do_login, set_reload_login }) => {
+const Login = ({ login, do_login, set_reload_login, set_login_status }) => {
   const navigation = useNavigation()
 
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+  const [loginMessage, setLoginMessage] = useState('')
 
   useEffect(() => {
     if (login.token) {
       navigation.navigate('Home')
+    }
+  }, [login])
+
+  useEffect(() => {
+    console.log(login)
+    if (login.login_status === 'error') {
+      setLoginMessage(true)
+      alert('Wrong username or password')
     }
   }, [login])
 

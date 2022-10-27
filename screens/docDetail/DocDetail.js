@@ -9,7 +9,7 @@ import moment from 'moment'
 const DocDetail = ({ login, document, delete_document }) => {
   const navigation = useNavigation()
   const [docName, setDocName] = useState('')
-  const [isEditing, setIsEditing] = useState(false)
+  const [myDoc, setMyDoc] = useState(false)
 
   useEffect(() => {
     setDocName(document?.current_document?.name)
@@ -20,6 +20,15 @@ const DocDetail = ({ login, document, delete_document }) => {
     navigation.navigate('Home')
   }
 
+  useEffect(() => {
+    document?.current_user_documents?.map((item) => {
+      if (item?._id === document?.current_document?._id) {
+        setMyDoc(true)
+      }
+    })
+    console.log(document)
+  }, [login, document])
+
   return (
     <TouchableWithoutFeedback>
       <View style={styles.wrapper}>
@@ -28,19 +37,26 @@ const DocDetail = ({ login, document, delete_document }) => {
             size={30}
             name="arrowleft"
             onPress={() => navigation.navigate('Profile')}
+            style={{ color: '#fff' }}
           />
           <Text style={styles.title}>Document Details</Text>
         </View>
         <View style={styles.flexContainer}>
-          <Input
+          {/* <Input
             style={styles.input}
             label={() => <Text style={styles.inputLabel}>Document Name</Text>}
             size="large"
-            keyboardType="email-address"
             value={docName}
-            onChangeText={(text) => setDocName(text)}
-          />
-          <Button style={styles.editBtn}>Edit</Button>
+            // onChangeText={(text) => setDocName(text)}
+            editable={false}
+          /> */}
+          <Card style={{ width: '70%' }}>
+            <View style={styles.docName}>
+              <Text style={styles.docNameText}>{docName}</Text>
+            </View>
+          </Card>
+
+          <Button style={styles.downloadBtn}>Download</Button>
         </View>
         <Card style={{ width: '90%' }}>
           <View style={styles.cardDetail}>
@@ -59,13 +75,15 @@ const DocDetail = ({ login, document, delete_document }) => {
             </View>
           </View>
         </Card>
-        <Button
-          style={styles.deleteBtn}
-          status="danger"
-          onPress={() => handle_delete_doc()}
-        >
-          Delete
-        </Button>
+        {myDoc && (
+          <Button
+            style={styles.deleteBtn}
+            status="danger"
+            onPress={() => handle_delete_doc()}
+          >
+            Delete
+          </Button>
+        )}
       </View>
     </TouchableWithoutFeedback>
   )

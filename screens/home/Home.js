@@ -50,11 +50,15 @@ const Home = ({
   const route = useRoute()
 
   useEffect(() => {
-    get_user_documents(login.user.uid, login)
+    console.log(login)
+  }, [login])
+
+  useEffect(() => {
+    get_user_documents(login?.user?.uid, login)
   }, [])
 
   useEffect(() => {
-    if (document.upload_status === 'uploading') {
+    if (document?.upload_status === 'uploading') {
       setUploadMessage(true)
     }
   }, [document])

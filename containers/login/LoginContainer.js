@@ -1,7 +1,11 @@
 import React from 'react'
 import Login from '../../screens/login/Login'
 import { connect } from 'react-redux'
-import { do_login, set_reload_login } from '../../actions/login/loginActions'
+import {
+  do_login,
+  set_reload_login,
+  set_login_status,
+} from '../../actions/login/loginActions'
 
 const LoginContainer = (props) => {
   return <Login {...props} />
@@ -20,6 +24,9 @@ const mapDispatchToProps = (dispatch) => {
     },
     set_reload_login: (user) => {
       dispatch(set_reload_login(user))
+    },
+    set_login_status: (status) => {
+      dispatch(set_login_status(status))
     },
   }
 }

@@ -15,6 +15,8 @@ import {
   RELOAD_LOGIN,
   LOGIN,
   LOGOUT,
+  LOGIN_STATUS,
+  SET_LOGIN_STATUS,
 } from '../../constants/login/loginConstants'
 import UNIVERSAL from '../../config/config'
 import AsyncStorage from '@react-native-async-storage/async-storage'
@@ -91,7 +93,7 @@ export function signup(user) {
 
 export function do_login(user) {
   return (dispatch) => {
-    // dispatch(set_login_loader())
+    dispatch(set_login_status('logining'))
     return fetch(UNIVERSAL.BASEURL + '/api/users/login', {
       method: 'POST',
       headers: {
@@ -106,10 +108,10 @@ export function do_login(user) {
       .then((response) => response.json())
       .then((responseJson) => {
         if (responseJson.status === 'success') {
-          console.log('Login Data', responseJson)
           dispatch(set_login(responseJson))
 
           dispatch(set_current_user_documents(responseJson.data.user.edocs))
+          dispatch(set_login_status(''))
 
           //   dispatch(get_user_cart(responseJson.data.user))
           //   dispatch(reset_user())
@@ -117,11 +119,13 @@ export function do_login(user) {
           //   dispatch(set_snackbar(responseJson.message, true, 'success'))
         } else {
           //   dispatch(set_snackbar(responseJson.message, true, 'error'))
+          dispatch(set_login_status('error'))
         }
         // dispatch(unset_login_loader())
       })
       .catch((error) => {
         console.log(error)
+        dispatch(set_login_status('error'))
       })
   }
 }
@@ -164,6 +168,13 @@ export function logout() {
     }
   } catch (e) {
     console.error(e)
+  }
+}
+
+export function set_login_status(payload) {
+  return {
+    type: SET_LOGIN_STATUS,
+    payload: payload,
   }
 }
 

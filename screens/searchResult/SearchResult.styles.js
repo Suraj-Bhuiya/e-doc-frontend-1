@@ -1,4 +1,4 @@
-import { StyleSheet } from 'react-native'
+import { StyleSheet, StatusBar } from 'react-native'
 
 export const styles = StyleSheet.create({
   wrapper: {
@@ -7,32 +7,29 @@ export const styles = StyleSheet.create({
     alignItems: 'center',
     width: '100%',
     // marginTop: 40,
-    position: 'relative',
+    // position: 'relative',
   },
   topbar: {
     display: 'flex',
     alignItems: 'center',
     flexDirection: 'row',
-    paddingVertical: 10,
-    paddingTop: 50,
+    paddingVertical: 20,
+    paddingTop: StatusBar.currentHeight,
     paddingHorizontal: 20,
     width: '100%',
     borderColor: '#c1c1c1',
     borderBottomWidth: 2,
-    marginBottom: 20,
-    position: 'absolute',
-    top: 0,
-    left: 0,
-    backgroundColor: '#fff',
-    zIndex: 10,
+    marginBottom: 30,
+    backgroundColor: '#598672',
   },
   title: {
     marginLeft: 40,
     fontSize: 18,
     fontFamily: 'MontserratAlternates-Regular',
+    color: '#fff',
   },
   content: {
-    marginTop: 110,
+    // marginTop: 110,
 
     width: '100%',
     // backgroundColor: "#fff"
@@ -63,7 +60,7 @@ export const styles = StyleSheet.create({
   listWrapper: {},
   cardList: {
     display: 'flex',
-    marginBottom: 70,
+    marginBottom: 200,
     paddingHorizontal: 20,
   },
 

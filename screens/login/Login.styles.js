@@ -2,10 +2,12 @@ import { StyleSheet, Dimensions } from 'react-native'
 
 export const styles = StyleSheet.create({
   wrapper: {
-    height: Dimensions.get('screen').height,
+    height: '100%',
+    width: '100%',
     // padding: 20,
     display: 'flex',
     alignItems: 'center',
+    position: 'relative',
   },
   top: {
     width: '100%',
@@ -53,5 +55,29 @@ export const styles = StyleSheet.create({
     color: 'rgb(143, 155, 179)',
     fontSize: 15,
     fontFamily: 'MontserratAlternates-SemiBold',
+  },
+  loginMessageBackdrop: {
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+  },
+  loginMessage: {
+    width: 300,
+    // height: 250,
+    backgroundColor: '#fff',
+    borderColor: '#eee',
+    // borderWidth: 2,
+    padding: 20,
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center',
+    elevation: 2,
+    borderRadius: 10,
+  },
+  loginStatusText: {
+    fontSize: 18,
+    color: '#757575',
+    fontFamily: 'MontserratAlternates-SemiBold',
+    marginBottom: 15,
+    marginTop: 10,
   },
 })

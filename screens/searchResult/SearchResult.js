@@ -1,5 +1,5 @@
 import { View, Text, ScrollView, TouchableOpacity } from 'react-native'
-import React from 'react'
+import React, { useState } from 'react'
 import Octicons from 'react-native-vector-icons/Octicons'
 import AntDesign from 'react-native-vector-icons/AntDesign'
 import { styles } from './SearchResult.styles'
@@ -10,11 +10,14 @@ import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome'
 import { useEffect } from 'react'
 import moment from 'moment/moment'
 
-const SearchResult = ({ login, document }) => {
+const SearchResult = ({ login, document, set_current_document }) => {
   const navigation = useNavigation()
-  useEffect(() => {
-    console.log(document, 'ALL DOUCMENT')
-  }, [document])
+
+  const handle_doc_detail = (doc) => {
+    set_current_document(doc)
+    navigation.navigate('DocDetail')
+  }
+
   return (
     <View style={styles.wrapper}>
       <View style={styles.topbar}>
@@ -22,6 +25,7 @@ const SearchResult = ({ login, document }) => {
           size={30}
           name="arrowleft"
           onPress={() => navigation.navigate('Search')}
+          style={{ color: '#fff' }}
         />
         <Text style={styles.title}>Alay Naru</Text>
       </View>
@@ -38,7 +42,11 @@ const SearchResult = ({ login, document }) => {
         <ScrollView style={styles.cardList}>
           {document?.other_user_documents?.map((item) => {
             return (
-              <Card key={uuid()} style={styles.card}>
+              <Card
+                key={uuid()}
+                style={styles.card}
+                onPress={() => handle_doc_detail(item)}
+              >
                 <View style={styles.cardContent}>
                   <View style={styles.cardLeft}>
                     <Text style={styles.docName}>{item.name}</Text>

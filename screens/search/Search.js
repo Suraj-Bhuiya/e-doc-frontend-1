@@ -20,7 +20,12 @@ import MaterialCommunityIcon from 'react-native-vector-icons/MaterialCommunityIc
 import SearchIllus from '../../assets/search.png'
 import { useEffect } from 'react'
 
-const Search = ({ login, document, get_user_documents }) => {
+const Search = ({
+  login,
+  document,
+  get_user_documents,
+  set_current_document,
+}) => {
   const [uid, setUid] = useState('')
   const navigation = useNavigation()
   const [isModal, setIsModal] = useState(false)
