@@ -4,6 +4,8 @@ import SearchResult from '../../screens/searchResult/SearchResult'
 import {
   get_user_documents,
   set_current_document,
+  reset_user_documents,
+  set_get_document_status,
 } from '../../actions/document/documentActions'
 
 const SearchResultContainer = (props) => {
@@ -24,6 +26,12 @@ const mapDispatchToProps = (dispatch) => {
     },
     set_current_document: (doc) => {
       dispatch(set_current_document(doc))
+    },
+    set_get_document_status: (status) => {
+      dispatch(set_get_document_status(status))
+    },
+    reset_user_documents: () => {
+      dispatch(reset_user_documents())
     },
   }
 }

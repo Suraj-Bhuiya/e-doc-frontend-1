@@ -17,7 +17,7 @@ export const styles = StyleSheet.create({
     width: '100%',
     borderColor: '#c1c1c1',
     borderBottomWidth: 2,
-    marginBottom: 30,
+    // marginBottom: 30,
     backgroundColor: '#598672',
   },
   title: {
@@ -30,6 +30,7 @@ export const styles = StyleSheet.create({
     paddingHorizontal: 20,
     width: '100%',
     // backgroundColor: "#fff"
+    marginTop: 16,
   },
   inputLabel: {
     color: '#444',
@@ -46,5 +47,10 @@ export const styles = StyleSheet.create({
     // elevation: 5,
     width: '60%',
     alignSelf: 'center',
+  },
+  updateProfileHelpText: {
+    fontFamily: 'MontserratAlternates-Regular',
+    fontSize: 15,
+    marginBottom: 15,
   },
 })

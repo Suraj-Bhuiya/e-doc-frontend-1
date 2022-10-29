@@ -13,10 +13,12 @@ import {
   Platform,
   Alert,
 } from 'react-native'
+import Animated, { FadeInDown } from 'react-native-reanimated'
 import { styles } from './Home.styles'
 import { useNavigation, useRoute } from '@react-navigation/native'
 import { Input, Card, Button, Modal } from '@ui-kitten/components'
 import AvatarImg from '../../assets/avatar.png'
+import NoResult from '../../assets/noResult.png'
 
 import IonIcon from 'react-native-vector-icons/Ionicons'
 import Octicons from 'react-native-vector-icons/Octicons'
@@ -44,54 +46,24 @@ const Home = ({
   const [file, setFile] = useState('')
   const [filteredList, setFilteredList] = useState([])
   const [searchWord, setSearchWord] = useState('')
-  const [uploadMessage, setUploadMessage] = useState(false)
 
   const navigation = useNavigation()
-  const route = useRoute()
 
   useEffect(() => {
     console.log(login)
   }, [login])
 
   useEffect(() => {
-    get_user_documents(login?.user?.uid, login)
-  }, [])
+    console.log(searchWord)
+  }, [searchWord])
 
   useEffect(() => {
-    if (document?.upload_status === 'uploading') {
-      setUploadMessage(true)
-    }
-  }, [document])
+    get_user_documents(login?.user?.uid, login)
 
-  const handle_set_doc = useCallback(async () => {
-    try {
-      const response = await DocumentPicker.getDocumentAsync({
-        presentationStyle: 'fullScreen',
-      })
-      setFile(response)
-    } catch (err) {
-      console.warn(err)
+    return () => {
+      setSearchWord('')
     }
   }, [])
-
-  const getBlob = async (uri) => {
-    const response = await fetch(uri)
-    const blob = await response.blob()
-
-    return blob
-  }
-
-  const handle_upload_document = async () => {
-    setUploadModal(false)
-    const blob = await getBlob(file.uri)
-    const doc = {
-      name: docName,
-      file: file,
-      blob: blob,
-    }
-
-    upload_document(doc, login)
-  }
 
   const handle_doc_detail = (doc) => {
     set_current_document(doc)
@@ -181,7 +153,10 @@ const Home = ({
             />
           </View>
           <View style={styles.name}>
-            <Text style={styles.h3}>Hi {login?.user?.name?.split(' ')[0]}</Text>
+            <Text style={styles.h3}>
+              Hallo! {login?.user?.name?.split(' ')[0]}
+            </Text>
+            <Text style={styles.welcomeText}>Welcome Back</Text>
           </View>
         </View>
         <View style={styles.main}>
@@ -189,28 +164,27 @@ const Home = ({
             <Input
               size="large"
               style={styles.searchInput}
-              placeholder="Search by doc name"
+              placeholder="Search by document name"
               value={searchWord}
               onChangeText={(text) => setSearchWord(text)}
             />
           </View>
-          <ScrollView>
-            <View style={styles.cardList}>
-              {filteredList.length === 0 && (
-                <View style={styles.noDoc}>
-                  <LottieView
-                    style={{ width: 250, height: 250 }}
-                    source={require('../../assets/noDocuments.json')}
-                    // autoPlay
-                    // loop
-                  />
-                </View>
-              )}
-              {filteredList.length !== 0 &&
-                filteredList?.map((item) => {
-                  return (
+          <ScrollView style={styles.cardList}>
+            {filteredList.length === 0 && (
+              <View style={styles.noDoc}>
+                <Text style={styles.noDocText}>No Document To Show!!</Text>
+
+                <Image style={styles.noDocImage} source={NoResult} />
+              </View>
+            )}
+            {filteredList.length !== 0 &&
+              filteredList?.map((item, i) => {
+                return (
+                  <Animated.View
+                    key={item._id}
+                    entering={FadeInDown.delay(100 * i).springify()}
+                  >
                     <Card
-                      key={uuid()}
                       style={styles.card}
                       onPress={() => handle_doc_detail(item)}
                     >
@@ -242,120 +216,13 @@ const Home = ({
                         </View>
                       </View>
                     </Card>
-                  )
-                })}
-            </View>
+                  </Animated.View>
+                )
+              })}
           </ScrollView>
         </View>
-        <Modal
-          visible={uploadMessage}
-          backdropStyle={styles.uploadMessageBackdrop}
-          onBackdropPress={() => {
-            setUploadMessage(false)
-            set_upload_status('')
-          }}
-        >
-          <View style={styles.uploadMessage}>
-            {document.upload_status === 'error' && (
-              <>
-                <LottieView
-                  style={{ width: 100, height: 100 }}
-                  source={require('../../assets/error.json')}
-                  autoPlay
-                  loop
-                />
-                <Text style={styles.uploadText}>Something Went Wrong!</Text>
-                <Button
-                  onPress={() => {
-                    setUploadMessage(false)
-                    set_upload_status('')
-                  }}
-                >
-                  Ok
-                </Button>
-              </>
-            )}
 
-            {document.upload_status === 'uploading' && (
-              <>
-                <LottieView
-                  style={{ width: 100, height: 100 }}
-                  source={require('../../assets/uploading.json')}
-                  autoPlay
-                  loop
-                />
-                <Text style={styles.uploadText}>Uploading...</Text>
-              </>
-            )}
-            {document.upload_status === 'uploaded' && (
-              <>
-                <LottieView
-                  style={{ width: 100, height: 100 }}
-                  source={require('../../assets/tick.json')}
-                  autoPlay
-                  loop
-                />
-                <Text style={styles.uploadText}>Uploaded</Text>
-                <Button
-                  onPress={() => {
-                    setUploadMessage(false)
-                    set_upload_status('')
-                  }}
-                >
-                  Ok
-                </Button>
-              </>
-            )}
-          </View>
-        </Modal>
-        {uploadModal && (
-          <View
-            style={styles.uploadModalWrapper}
-            onPress={() => setUploadModal(false)}
-          >
-            <View
-              style={styles.uploadModal}
-              onStartShouldSetResponder={(event) => true}
-              onTouchEnd={(e) => {
-                e.stopPropagation()
-              }}
-            >
-              <Pressable
-                style={styles.uploadModalInner}
-                onPress={() => Keyboard.dismiss()}
-              >
-                <View style={styles.bar} />
-                <Text style={styles.h2}>Upload a new Document</Text>
-                <Input
-                  value={docName}
-                  onChangeText={(text) => setDocName(text)}
-                  label={() => (
-                    <Text style={styles.inputLabel}>Document Name</Text>
-                  )}
-                />
-                <Text style={styles.fileName}>
-                  {file.name || 'No file Choosen'}
-                </Text>
-                <Button
-                  status="success"
-                  style={styles.chooseFileBtn}
-                  onPress={handle_set_doc}
-                >
-                  Choose File
-                </Button>
-                <Button
-                  onPress={() => handle_upload_document()}
-                  size="large"
-                  style={styles.uploadBtn}
-                >
-                  Upload
-                </Button>
-              </Pressable>
-            </View>
-          </View>
-        )}
-
-        <View style={styles.navigation}>
+        {/* <View style={styles.navigation}>
           <View style={styles.navigationLeft}>
             <IonIcon
               color={route.name === 'Home' ? '#000' : '#aaaaaa'}
@@ -385,7 +252,7 @@ const Home = ({
               onPress={() => navigation.navigate('Profile')}
             />
           </View>
-        </View>
+        </View> */}
       </View>
     </TouchableWithoutFeedback>
   )

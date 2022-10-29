@@ -85,37 +85,7 @@ const Search = ({
             Search
           </Button>
         </View>
-        <View style={styles.navigation}>
-          <View style={styles.navigationLeft}>
-            <IonIcon
-              color={route.name === 'Home' ? '#000' : '#aaaaaa'}
-              size={30}
-              name="home-outline"
-              onPress={() => navigation.navigate('Home')}
-            />
-            <IonIcon
-              color={route.name === 'Search' ? '#000' : '#aaaaaa'}
-              size={30}
-              name="search-outline"
-              onPress={() => navigation.navigate('Search')}
-            />
-          </View>
-          <TouchableHighlight onPress={() => null}>
-            <View style={styles.navigationCenter}>
-              <IonIcon color="#fff" size={30} name="add" />
-            </View>
-          </TouchableHighlight>
 
-          <View style={styles.navigationRight}>
-            <IonIcon color="#aaaaaa" size={30} name="chatbox-outline" />
-            <MaterialCommunityIcon
-              color="#aaaaaa"
-              size={30}
-              name="account-outline"
-              onPress={() => navigation.navigate('Profile')}
-            />
-          </View>
-        </View>
         <Modal
           visible={isModal}
           backdropStyle={styles.backdrop}
@@ -123,9 +93,7 @@ const Search = ({
         >
           <Card disabled={true}>
             <Text style={styles.modalText}>Please enter a valid UID</Text>
-            <Button style onPress={() => setIsModal(false)}>
-              OK
-            </Button>
+            <Button onPress={() => setIsModal(false)}>OK</Button>
           </Card>
         </Modal>
       </View>

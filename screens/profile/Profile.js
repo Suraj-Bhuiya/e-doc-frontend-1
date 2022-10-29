@@ -123,7 +123,7 @@ const Profile = ({ login, logout, upload_profile_pic }) => {
                   <Text style={styles.listText}>Edit profile</Text>
                 </View>
 
-                <MaterialIcon size={40} color="#666" name="chevron-right" />
+                <MaterialIcon size={40} color="#9e9e9e" name="chevron-right" />
               </View>
             </TouchableOpacity>
             <TouchableOpacity
@@ -134,7 +134,7 @@ const Profile = ({ login, logout, upload_profile_pic }) => {
                   <MaterialIcon size={25} color="#666" name="language" />
                   <Text style={styles.listText}>Change Language</Text>
                 </View>
-                <MaterialIcon size={40} color="#666" name="chevron-right" />
+                <MaterialIcon size={40} color="#9e9e9e" name="chevron-right" />
               </View>
             </TouchableOpacity>
             <TouchableOpacity>
@@ -143,7 +143,7 @@ const Profile = ({ login, logout, upload_profile_pic }) => {
                   <Octicons size={25} color="#666" name="thumbsup" />
                   <Text style={styles.listText}>Rate Us</Text>
                 </View>
-                <MaterialIcon size={40} color="#666" name="chevron-right" />
+                <MaterialIcon size={40} color="#9e9e9e" name="chevron-right" />
               </View>
             </TouchableOpacity>
           </View>
@@ -155,37 +155,6 @@ const Profile = ({ login, logout, upload_profile_pic }) => {
           >
             Log out
           </Button>
-        </View>
-
-        <View style={styles.navigation}>
-          <View style={styles.navigationLeft}>
-            <IonIcon
-              color={route.name === 'Home' ? '#000' : '#aaaaaa'}
-              size={30}
-              name="home-outline"
-              onPress={() => navigation.navigate('Home')}
-            />
-            <IonIcon
-              color={route.name === 'Search' ? '#000' : '#aaaaaa'}
-              size={30}
-              name="search-outline"
-              onPress={() => navigation.navigate('Search')}
-            />
-          </View>
-          <TouchableHighlight onPress={() => null}>
-            <View style={styles.navigationCenter}>
-              <IonIcon color="#fff" size={30} name="add" />
-            </View>
-          </TouchableHighlight>
-
-          <View style={styles.navigationRight}>
-            <IonIcon color="#aaaaaa" size={30} name="chatbox-outline" />
-            <MaterialCommunityIcon
-              color={route.name === 'Profile' ? '#000' : '#aaaaaa'}
-              size={30}
-              name="account-outline"
-            />
-          </View>
         </View>
       </View>
     </TouchableWithoutFeedback>

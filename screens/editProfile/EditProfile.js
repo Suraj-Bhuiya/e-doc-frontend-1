@@ -43,6 +43,7 @@ const EditProfile = ({ login, update_profile }) => {
           <Text style={styles.title}>Edit Profile</Text>
         </View>
         <View style={styles.content}>
+          <Text style={styles.updateProfileHelpText}>Basic Details</Text>
           <Input
             style={styles.input}
             label={() => <Text style={styles.inputLabel}>Full Name</Text>}

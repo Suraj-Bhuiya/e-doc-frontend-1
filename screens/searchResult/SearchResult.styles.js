@@ -2,12 +2,13 @@ import { StyleSheet, StatusBar } from 'react-native'
 
 export const styles = StyleSheet.create({
   wrapper: {
-    height: '100%',
+    // height: '100%',
     display: 'flex',
     alignItems: 'center',
     width: '100%',
     // marginTop: 40,
     // position: 'relative',
+    // backgroundColor: '#fff',
   },
   topbar: {
     display: 'flex',
@@ -19,7 +20,7 @@ export const styles = StyleSheet.create({
     width: '100%',
     borderColor: '#c1c1c1',
     borderBottomWidth: 2,
-    marginBottom: 30,
+
     backgroundColor: '#598672',
   },
   title: {
@@ -29,8 +30,7 @@ export const styles = StyleSheet.create({
     color: '#fff',
   },
   content: {
-    // marginTop: 110,
-
+    marginTop: 16,
     width: '100%',
     // backgroundColor: "#fff"
   },
@@ -59,8 +59,9 @@ export const styles = StyleSheet.create({
   },
   listWrapper: {},
   cardList: {
-    display: 'flex',
-    marginBottom: 200,
+    width: '100%',
+    height: '84%',
+    // marginBottom: 200,
     paddingHorizontal: 20,
   },
 
@@ -92,5 +93,23 @@ export const styles = StyleSheet.create({
   docDate: {
     fontSize: 15,
     fontFamily: 'MontserratAlternates-LightItalic',
+  },
+  loading: {
+    paddingTop: 200,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  noDoc: {
+    width: '100%',
+    alignItems: 'center',
+    marginTop: 50,
+  },
+  noDocImage: {
+    width: '60%',
+    height: 250,
+  },
+  noDocText: {
+    fontSize: 18,
+    fontFamily: 'MontserratAlternates-Regular',
   },
 })

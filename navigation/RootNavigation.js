@@ -29,6 +29,8 @@ import SearchResultContainer from '../containers/searchResult/SearchResultContai
 import SearchContainer from '../containers/search/SearchContainer'
 import DocDetailContainer from '../containers/docDetail/DocDetailContainer'
 import ChooseLanguageContainer from '../containers/chooseLanguage/ChooseLanguageContainer'
+import TabNavigator from './TabNavigation'
+import AddDocContainer from '../containers/addDocContainer/AddDocContainer'
 
 const { Navigator, Screen } = createNativeStackNavigator()
 
@@ -54,7 +56,7 @@ const RootNavigation = ({
           const loginData = await AsyncStorage.getItem('E_DOC_LOGIN')
 
           set_reload_login({ token, user: JSON.parse(loginData) })
-          set_current_user_documents(JSON.parse(loginData).edocs)
+          // set_current_user_documents(JSON.parse(loginData).edocs)
           setInitialRoute('Home')
         } else {
           setInitialRoute('Landing')
@@ -69,7 +71,6 @@ const RootNavigation = ({
   if (initialRoute) {
     return (
       <NavigationContainer>
-        {/* <View style={styles.wrapper}> */}
         <Navigator
           screenOptions={{
             headerShown: false,
@@ -79,13 +80,15 @@ const RootNavigation = ({
           <Screen name="Landing" children={() => <Landing />} />
           <Screen name="Login" children={() => <LoginContainer />} />
           <Screen name="Signup" children={() => <SignupContainer />} />
-          <Screen name="Home" children={() => <HomeContainer />} />
-          <Screen name="Search" children={() => <SearchContainer />} />
-          <Screen name="Profile" children={() => <ProfileContainer />} />
+          <Screen name="Home" children={() => <TabNavigator />} />
+
+          {/* <Screen name="Search" children={() => <SearchContainer />} />
+          <Screen name="Profile" children={() => <ProfileContainer />} /> */}
           <Screen
             name="EditProfile"
             children={() => <EditProfileContainer />}
           />
+
           <Screen
             name="ChooseLanguage"
             children={() => <ChooseLanguageContainer />}
@@ -96,40 +99,6 @@ const RootNavigation = ({
           />
           <Screen name="DocDetail" children={() => <DocDetailContainer />} />
         </Navigator>
-        {/* <View style={styles.navigation}>
-          <View style={styles.navigationLeft}>
-            <IonIcon
-              color="#000"
-              size={30}
-              name="home-outline"
-              onPress={() => navigation.navigate('Home')}
-            />
-            <IonIcon
-              color="#aaaaaa"
-              size={30}
-              name="search-outline"
-              onPress={() => navigation.navigate('Search')}
-            />
-          </View>
-          <TouchableHighlight onPress={() => null}>
-            <View style={styles.navigationCenter}>
-              <IonIcon color="#fff" size={30} name="add" />
-            </View>
-          </TouchableHighlight>
-
-          <View style={styles.navigationRight}>
-            <Pressable>
-              <IonIcon color="#aaaaaa" size={30} name="chatbox-outline" />
-            </Pressable>
-            <MaterialCommunityIcon
-              color="#aaaaaa"
-              size={30}
-              name="account-outline"
-              onPress={() => navigation.navigate('Profile')}
-            />
-          </View>
-        </View> */}
-        {/* </View> */}
       </NavigationContainer>
     )
   } else {

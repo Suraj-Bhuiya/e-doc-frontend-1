@@ -11,7 +11,7 @@ export const styles = StyleSheet.create({
     display: 'flex',
     alignItems: 'center',
     flexDirection: 'row',
-    paddingVertical: 20,
+    paddingVertical: 10,
     paddingTop: StatusBar.currentHeight,
     paddingHorizontal: 20,
     width: '100%',
@@ -27,9 +27,10 @@ export const styles = StyleSheet.create({
     color: '#fff',
   },
   content: {
-    paddingHorizontal: 20,
+    paddingHorizontal: 10,
     width: '100%',
     // backgroundColor: "#fff"
+    marginTop: 16,
   },
 
   list: {
@@ -42,13 +43,21 @@ export const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    height: 60,
-    borderBottomColor: 'grey',
+    height: 50,
+    borderBottomColor: '#bdbdbd',
     borderBottomWidth: 0.5,
+    borderRadius: 5,
+    paddingHorizontal: 10,
   },
 
   language: {
     fontFamily: 'MontserratAlternates-Regular',
-    fontSize: 18,
+    fontSize: 16,
+  },
+  languageHelpText: {
+    fontFamily: 'MontserratAlternates-Regular',
+    fontSize: 15,
+    paddingHorizontal: 10,
+    marginBottom: 10,
   },
 })

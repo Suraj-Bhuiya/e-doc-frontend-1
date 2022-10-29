@@ -55,6 +55,7 @@ export const styles = StyleSheet.create({
     fontSize: 18,
     marginBottom: 15,
     fontFamily: 'MontserratAlternates-Medium',
+    alignItems: 'center',
   },
 
   navigation: {

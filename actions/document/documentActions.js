@@ -5,10 +5,13 @@ import {
   SET_CURRENT_USER_DOCUMENTS,
   SET_CURRENT_DOCUMENT,
   SET_UPLOAD_STATUS,
+  RESET_USER_DOCUMENTS,
+  SET_GET_DOCUMENT_STATUS,
 } from '../../constants/document/documentConstants'
 
 export function get_user_documents(uid, login, other) {
   return (dispatch) => {
+    dispatch(set_get_document_status('loading'))
     return fetch(UNIVERSAL.BASEURL + `/api/edocs/uid/${uid}`, {
       method: 'GET',
       headers: {
@@ -26,12 +29,15 @@ export function get_user_documents(uid, login, other) {
           } else {
             dispatch(set_current_user_documents(responseJson.data.edocs))
           }
+          dispatch(set_get_document_status('loaded'))
         } else {
           console.log(responseJson)
+          dispatch(set_get_document_status('error'))
         }
       })
       .catch((error) => {
         console.log(error)
+        dispatch(set_get_document_status('error'))
       })
   }
 }
@@ -148,5 +154,18 @@ export function set_upload_status(payload) {
   return {
     type: SET_UPLOAD_STATUS,
     payload: payload,
+  }
+}
+
+export function set_get_document_status(payload) {
+  return {
+    type: SET_GET_DOCUMENT_STATUS,
+    payload: payload,
+  }
+}
+
+export function reset_user_documents() {
+  return {
+    type: RESET_USER_DOCUMENTS,
   }
 }

@@ -37,9 +37,14 @@ export const styles = StyleSheet.create({
   name: {
     marginHorizontal: 15,
   },
+  welcomeText: {
+    color: '#fff',
+    fontSize: 14,
+    fontFamily: 'MontserratAlternates-Medium',
+  },
   h3: {
     color: '#fff',
-    fontSize: 20,
+    fontSize: 25,
     fontFamily: 'MontserratAlternates-Medium',
   },
   main: {
@@ -62,13 +67,13 @@ export const styles = StyleSheet.create({
   },
   searchInput: {
     width: 300,
-    borderRadius: 40,
+    borderRadius: 10,
     margin: 0,
   },
 
   cardList: {
     display: 'flex',
-    marginBottom: 220,
+    marginBottom: 200,
   },
 
   card: {
@@ -102,40 +107,6 @@ export const styles = StyleSheet.create({
     color: '#757575',
   },
 
-  uploadModalWrapper: {
-    height: '100%',
-    width: '100%',
-    backgroundColor: 'rgba(0, 0, 0, 0.5)',
-    position: 'absolute',
-    bottom: 0,
-    left: 0,
-    zIndex: 11,
-  },
-  uploadModal: {
-    backgroundColor: '#fff',
-    width: '100%',
-    height: 380,
-    position: 'absolute',
-    bottom: 0,
-    left: 0,
-    padding: 20,
-    display: 'flex',
-    flexDirection: 'column',
-    // justifyContent: 'center',
-    alignItems: 'center',
-    borderTopLeftRadius: 40,
-    borderTopRightRadius: 40,
-  },
-
-  uploadModalInner: {
-    width: '100%',
-    height: '100%',
-    display: 'flex',
-    flexDirection: 'column',
-    // justifyContent: 'center',
-    alignItems: 'center',
-  },
-
   bar: {
     backgroundColor: '#c1c1c1',
     width: '40%',
@@ -150,105 +121,18 @@ export const styles = StyleSheet.create({
     alignSelf: 'flex-start',
     marginBottom: 20,
   },
-  inputLabel: {
-    color: 'rgb(143, 155, 179)',
-    fontSize: 15,
-    fontFamily: 'MontserratAlternates-SemiBold',
-  },
-  fileName: {
-    marginTop: 16,
-    color: 'rgb(143, 155, 179)',
-    fontSize: 15,
-    fontFamily: 'MontserratAlternates-MediumItalic',
-    alignSelf: 'flex-start',
-  },
-
-  chooseFileBtn: {
-    marginVertical: 10,
-    alignSelf: 'flex-start',
-  },
-  uploadBtn: {
-    width: '100%',
-    borderRadius: 40,
-    marginTop: 30,
-  },
-
-  uploadMessage: {
-    width: 300,
-    // height: 250,
-    backgroundColor: '#fff',
-    borderColor: '#eee',
-    // borderWidth: 2,
-    padding: 20,
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-    justifyContent: 'center',
-    elevation: 2,
-    borderRadius: 10,
-  },
-
-  uploadText: {
-    fontSize: 18,
-    color: '#757575',
-    fontFamily: 'MontserratAlternates-SemiBold',
-    marginBottom: 15,
-    marginTop: 10,
-  },
-  uploadMessageBackdrop: {
-    backgroundColor: 'rgba(0, 0, 0, 0.5)',
-  },
 
   noDoc: {
     width: '100%',
     alignItems: 'center',
     marginTop: 50,
   },
-
-  navigation: {
-    position: 'absolute',
-    bottom: 0,
-    left: 0,
-    zIndex: 10,
-    display: 'flex',
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    backgroundColor: '#fff',
-    width: Dimensions.get('screen').width,
-    height: 60,
-    paddingHorizontal: 40,
-    elevation: 10,
-    borderWidth: 1,
-    borderColor: '#eee',
+  noDocImage: {
+    width: '60%',
+    height: 250,
   },
-
-  navigationCenter: {
-    // position: 'absolute',
-    alignSelf: 'center',
-    backgroundColor: '#598672',
-    width: 60,
-    height: 60,
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderRadius: 50,
-    overflow: 'hidden',
-    marginTop: -60,
-    elevation: 4,
-  },
-
-  navigationLeft: {
-    display: 'flex',
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    width: '32%',
-  },
-
-  navigationRight: {
-    display: 'flex',
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    width: '32%',
+  noDocText: {
+    fontSize: 18,
+    fontFamily: 'MontserratAlternates-Regular',
   },
 })
