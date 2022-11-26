@@ -12,17 +12,19 @@ import {
   PermissionsAndroid,
   Platform,
   Alert,
+  Linking,
 } from 'react-native'
 import Animated, { FadeInDown } from 'react-native-reanimated'
+import { WebView } from 'react-native-webview'
+
 import { styles } from './Home.styles'
 import { useNavigation, useRoute } from '@react-navigation/native'
 import { Input, Card, Button, Modal } from '@ui-kitten/components'
 import AvatarImg from '../../assets/avatar.png'
 import NoResult from '../../assets/noResult.png'
 
-import IonIcon from 'react-native-vector-icons/Ionicons'
+import AntDesign from 'react-native-vector-icons/AntDesign'
 import Octicons from 'react-native-vector-icons/Octicons'
-import MaterialCommunityIcon from 'react-native-vector-icons/MaterialCommunityIcons'
 import 'react-native-get-random-values'
 import { v4 as uuid } from 'uuid'
 import * as DocumentPicker from 'expo-document-picker'
@@ -50,14 +52,6 @@ const Home = ({
   const navigation = useNavigation()
 
   useEffect(() => {
-    console.log(login)
-  }, [login])
-
-  useEffect(() => {
-    console.log(searchWord)
-  }, [searchWord])
-
-  useEffect(() => {
     get_user_documents(login?.user?.uid, login)
 
     return () => {
@@ -83,8 +77,11 @@ const Home = ({
 
   const downloadFile = (uri, name) => {
     let fileUri = FileSystem.documentDirectory + `${name}.pdf`
+    console.log('FILEURI', fileUri)
     FileSystem.downloadAsync(uri, fileUri)
       .then(({ uri }) => {
+        console.log('URI', uri)
+        // Linking.openURL(uri)
         saveFile(uri)
       })
       .catch((error) => {
@@ -93,9 +90,13 @@ const Home = ({
   }
 
   const saveFile = async (fileUri) => {
-    const { status } = await Permissions.askAsync(Permissions.CAMERA_ROLL)
+    const { status } = await MediaLibrary.requestPermissionsAsync()
+    console.log('status', status)
     if (status === 'granted') {
-      const asset = await MediaLibrary.createAssetAsync(fileUri)
+      const asset = await MediaLibrary.createAssetAsync(fileUri).catch((err) =>
+        console.log('ERROR', err)
+      )
+      console.log('ASSET', asset)
 
       await MediaLibrary.createAlbumAsync('Download', asset, false)
     }
@@ -167,6 +168,9 @@ const Home = ({
               placeholder="Search by document name"
               value={searchWord}
               onChangeText={(text) => setSearchWord(text)}
+              accessoryRight={
+                <AntDesign size={25} color="#BDBDBD" name="search1" />
+              }
             />
           </View>
           <ScrollView style={styles.cardList}>
@@ -202,7 +206,8 @@ const Home = ({
                               size={25}
                               color="#3366ff"
                               name="download"
-                              onPress={() => downloadFile(item.url, item.name)}
+                              // onPress={() => downloadFile(item.url, item.name)}
+                              onPress={() => Linking.openURL(item.url)}
                             />
                           </TouchableOpacity>
                           {/* <TouchableOpacity>

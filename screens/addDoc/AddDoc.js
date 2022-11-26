@@ -27,7 +27,7 @@ const AddDoc = ({ login, document, upload_document, set_upload_status }) => {
       })
       setFile(response)
     } catch (err) {
-      console.warn(err)
+      console.error(err)
     }
   }, [])
 
@@ -119,7 +119,7 @@ const AddDoc = ({ login, document, upload_document, set_upload_status }) => {
           <AntDesign
             size={30}
             name="arrowleft"
-            onPress={() => navigation.navigate('Profile')}
+            onPress={() => navigation.goBack()}
             style={{ color: '#fff' }}
           />
           <Text style={styles.title}>Add Document</Text>

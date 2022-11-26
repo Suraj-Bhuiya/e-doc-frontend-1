@@ -8,6 +8,7 @@ import {
   Dimensions,
   ScrollView,
   KeyboardAvoidingView,
+  Platform,
 } from 'react-native'
 import { useTranslation } from 'react-i18next'
 import React, { useState } from 'react'
@@ -49,14 +50,17 @@ const Search = ({
   }, [login.language])
 
   return (
+    // <KeyboardAvoidingView
+    //   behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+    // >
     <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
-      <View style={styles.wrapper}>
+      <ScrollView contentContainerStyle={styles.wrapper}>
         <View style={styles.top}>
           <Svg
             id="visual"
-            viewBox={`0 0 ${Dimensions.get('screen').width} 960`}
+            viewBox={`0 0 100% 60%`}
             width="100%"
-            height="960"
+            height="60%"
             version="1.1"
           >
             <Path
@@ -96,8 +100,9 @@ const Search = ({
             <Button onPress={() => setIsModal(false)}>OK</Button>
           </Card>
         </Modal>
-      </View>
+      </ScrollView>
     </TouchableWithoutFeedback>
+    // </KeyboardAvoidingView>
   )
 }
 

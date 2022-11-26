@@ -148,7 +148,6 @@ export function set_login(payload) {
 }
 
 export function set_reload_login(payload) {
-  console.log(payload.user.edocs, 'PAYLOAD')
   set_current_user_documents(payload.user.edocs)
   return {
     type: RELOAD_LOGIN,

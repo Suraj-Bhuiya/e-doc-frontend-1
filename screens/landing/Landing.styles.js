@@ -1,10 +1,10 @@
-import { StyleSheet } from 'react-native'
+import { StyleSheet, Dimensions } from 'react-native'
 
 export const styles = StyleSheet.create({
   wrapper: {
-    height: '100%',
-    display: 'flex',
-    justifyContent: 'space-between',
+    height: Dimensions.get('screen').height,
+    // display: 'flex',
+    // justifyContent: 'space-between',
   },
   h1: {
     fontSize: 50,
@@ -33,12 +33,10 @@ export const styles = StyleSheet.create({
     right: 0,
   },
   cta: {
-    display: 'flex',
     flex: 1,
     alignItems: 'center',
     justifyContent: 'flex-end',
     paddingBottom: '15%',
-    borderTopRightRadius: 80,
   },
   ctaBtn: {
     width: '80%',

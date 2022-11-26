@@ -6,11 +6,11 @@ import { useNavigation } from '@react-navigation/native'
 import HomeContainer from '../containers/home/HomeContainer'
 import SearchContainer from '../containers/search/SearchContainer'
 import ProfileContainer from '../containers/profile/ProfileContainer'
-import ChatContainer from '../containers/chatContainer/ChatContainer'
 import { Touchable, TouchableOpacity, View } from 'react-native'
 import IonIcon from 'react-native-vector-icons/Ionicons'
 import MaterialCommunityIcon from 'react-native-vector-icons/MaterialCommunityIcons'
 import AddDocContainer from '../containers/addDocContainer/AddDocContainer'
+import MessagesContainer from '../containers/messages/MessagesContainer'
 
 const Tab = createBottomTabNavigator()
 
@@ -103,7 +103,7 @@ const TabNavigator = () => {
       />
       <Tab.Screen
         name="Chat"
-        component={ChatContainer}
+        component={MessagesContainer}
         options={{
           tabBarIcon: ({ focused }) => {
             return (

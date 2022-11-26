@@ -26,7 +26,7 @@ const DocDetail = ({ login, document, delete_document }) => {
         setMyDoc(true)
       }
     })
-    console.log(document)
+    console.log(document, 'DOC')
   }, [login, document])
 
   return (
@@ -68,9 +68,16 @@ const DocDetail = ({ login, document, delete_document }) => {
             </View>
             <View style={styles.divider} />
             <View style={styles.part}>
-              <Text style={styles.docDetailTitle}>Verified On</Text>
+              {document?.current_document?.verified && (
+                <Text style={styles.docDetailTitle}>Verified On</Text>
+              )}
+
               <Text style={styles.docDetailDate}>
-                {moment(Date.now()).format('ll')}{' '}
+                {document?.current_document?.verified
+                  ? moment(
+                      Date.now(document?.current_document?.verfiedAt)
+                    ).format('ll')
+                  : 'Not yet Verified'}
               </Text>
             </View>
           </View>

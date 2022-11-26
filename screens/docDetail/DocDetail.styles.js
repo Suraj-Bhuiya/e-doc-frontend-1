@@ -68,6 +68,7 @@ export const styles = StyleSheet.create({
   },
   part: {
     width: '50%',
+    justifyContent: 'center',
   },
   docDetailTitle: {
     fontSize: 14,

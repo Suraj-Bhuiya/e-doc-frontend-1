@@ -32,7 +32,6 @@ const Login = ({ login, do_login, set_reload_login, set_login_status }) => {
   }, [login])
 
   useEffect(() => {
-    console.log(login)
     if (login.login_status === 'error') {
       setLoginMessage(true)
       alert('Wrong username or password')
@@ -58,7 +57,6 @@ const Login = ({ login, do_login, set_reload_login, set_login_status }) => {
   }, [])
 
   const handle_login = () => {
-    console.log('LOGIN TRIGGERED', email, password)
     do_login({
       email,
       password,

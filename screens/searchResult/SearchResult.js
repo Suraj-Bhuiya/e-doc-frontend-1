@@ -1,4 +1,11 @@
-import { View, Text, ScrollView, TouchableOpacity, Image } from 'react-native'
+import {
+  View,
+  Text,
+  ScrollView,
+  TouchableOpacity,
+  Image,
+  RefreshControl,
+} from 'react-native'
 import React, { useState } from 'react'
 import Animated, { FadeInDown } from 'react-native-reanimated'
 import Octicons from 'react-native-vector-icons/Octicons'
@@ -63,7 +70,12 @@ const SearchResult = ({
           </Text>
           <Text style={styles.documentSub}>Documents</Text>
         </View>
-        <ScrollView style={styles.cardList}>
+        <ScrollView
+          style={styles.cardList}
+          refreshControl={
+            <RefreshControl onRefresh={() => console.log('hello')} />
+          }
+        >
           {loading && (
             <View style={styles.loading}>
               <LottieView

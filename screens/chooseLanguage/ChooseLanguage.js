@@ -39,10 +39,6 @@ const ChooseLanguage = ({ login, set_language }) => {
   const navigation = useNavigation()
   const [currentLanguage, setCurrentLanguage] = useState('en')
 
-  useEffect(() => {
-    console.log(login.language)
-  }, [login])
-
   return (
     // <SafeAreaView>
     <View style={styles.wrapper}>

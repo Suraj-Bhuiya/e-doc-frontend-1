@@ -1,4 +1,4 @@
-import { View, Text, SafeAreaView } from 'react-native'
+import { View, Text, TouchableWithoutFeedback, Keyboard } from 'react-native'
 import React, { useState, useEffect } from 'react'
 import { useNavigation } from '@react-navigation/native'
 import { styles } from './EditProfile.styles'
@@ -31,7 +31,7 @@ const EditProfile = ({ login, update_profile }) => {
   }
 
   return (
-    <SafeAreaView>
+    <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
       <View style={styles.wrapper}>
         <View style={styles.topbar}>
           <AntDesign
@@ -82,7 +82,7 @@ const EditProfile = ({ login, update_profile }) => {
           </Button>
         </View>
       </View>
-    </SafeAreaView>
+    </TouchableWithoutFeedback>
   )
 }
 

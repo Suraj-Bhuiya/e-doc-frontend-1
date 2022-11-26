@@ -15,7 +15,6 @@ export function upload_profile_pic(doc, login) {
 
       uploadBytes(storageRef, doc.blob).then(() => {
         getDownloadURL(storageRef).then((url) => {
-          console.log('URL', url)
           dispatch(upload_profile_pic_api(login, url))
         })
       })
@@ -39,11 +38,10 @@ export function upload_profile_pic_api(login, url) {
       .then((response) => response.json())
       .then((responseJson) => {
         if (responseJson.status === 'success') {
-          console.log(responseJson, 'FROM UPDATE_PROFILE_PIC')
           const data = { token: login.token, data: { user: responseJson.data } }
           dispatch(set_login(data))
 
-          dispatch(set_current_user_documents(data.data.user.edocs))
+          // dispatch(set_current_user_documents(data.data.user.edocs))
         } else {
           console.log(responseJson)
         }
@@ -70,11 +68,10 @@ export function update_profile(data, login) {
       .then((response) => response.json())
       .then((responseJson) => {
         if (responseJson.status === 'success') {
-          console.log(responseJson, 'FROM UPDATE_PROFILE_PIC')
           const data = { token: login.token, data: { user: responseJson.data } }
           dispatch(set_login(data))
 
-          dispatch(set_current_user_documents(data.data.user.edocs))
+          // dispatch(set_current_user_documents(data.data.user.edocs))
         } else {
           console.log(responseJson)
         }

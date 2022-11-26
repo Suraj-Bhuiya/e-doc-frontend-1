@@ -23,7 +23,6 @@ export function get_user_documents(uid, login, other) {
       .then((response) => response.json())
       .then((responseJson) => {
         if (responseJson.status === 'success') {
-          console.log(responseJson.data)
           if (other) {
             dispatch(set_user_documents(responseJson.data.edocs))
           } else {
@@ -31,7 +30,6 @@ export function get_user_documents(uid, login, other) {
           }
           dispatch(set_get_document_status('loaded'))
         } else {
-          console.log(responseJson)
           dispatch(set_get_document_status('error'))
         }
       })
@@ -51,7 +49,6 @@ export function upload_document(doc, login) {
         storage,
         `${login.user.name}/${doc.name}.${doc.file.mimeType.split('/')[1]}`
       )
-      console.log
 
       // const blob = getBlob(doc.file.uri)
       // console.log(blob)
@@ -61,7 +58,6 @@ export function upload_document(doc, login) {
       uploadBytes(storageRef, doc.blob)
         .then(() => {
           getDownloadURL(storageRef).then((url) => {
-            console.log('URL', url)
             dispatch(upload_document_api(doc, login, url))
           })
         })
@@ -91,7 +87,7 @@ export function upload_document_api(doc, login, url) {
       .then((responseJson) => {
         if (responseJson.status === 'success') {
           // dispatch(set_user_documents(responseJson.data))
-          console.log('SUCESS')
+
           dispatch(get_user_documents(login.user.uid, login))
           dispatch(set_upload_status('uploaded'))
         } else {

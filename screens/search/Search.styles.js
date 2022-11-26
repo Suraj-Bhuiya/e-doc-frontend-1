@@ -2,9 +2,8 @@ import { StyleSheet, Dimensions, StatusBar } from 'react-native'
 
 export const styles = StyleSheet.create({
   wrapper: {
-    height: '100%',
-    display: 'flex',
-    // flex: 1,
+    // height: Dimensions.get('window').height - 10,
+    flex: 1,
     alignItems: 'center',
     width: '100%',
     // backgroundColor: '#598672',
@@ -12,19 +11,18 @@ export const styles = StyleSheet.create({
   },
   top: {
     width: '100%',
-    height: '40%',
     position: 'relative',
-    marginBottom: 10,
+    // backgroundColor: 'green',
   },
   searchImg: {
     width: 300,
     height: 300,
     position: 'absolute',
-    bottom: -10,
+    bottom: 100,
     right: 0,
   },
   searchBox: {
-    marginTop: 30,
+    marginTop: -80,
     width: '90%',
   },
   h1: {

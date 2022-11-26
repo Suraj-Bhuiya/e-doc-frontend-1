@@ -53,7 +53,7 @@ const Profile = ({ login, logout, upload_profile_pic }) => {
       presentationStyle: 'fullScreen',
     })
     setFile(response)
-    console.log('helloasdsa')
+
     handle_upload_profile_pic()
     // const blob = await getBlob(file.uri)
     // const doc = {

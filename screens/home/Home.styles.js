@@ -3,7 +3,6 @@ import { StyleSheet, Dimensions } from 'react-native'
 export const styles = StyleSheet.create({
   wrapper: {
     height: '100%',
-    display: 'flex',
     alignItems: 'center',
     width: '100%',
     backgroundColor: '#598672',
@@ -13,7 +12,6 @@ export const styles = StyleSheet.create({
   avatarCont: {
     padding: 30,
     width: '100%',
-    display: 'flex',
     flexDirection: 'row',
     alignItems: 'center',
     paddingTop: 100,
@@ -63,6 +61,7 @@ export const styles = StyleSheet.create({
     position: 'absolute',
     top: -16,
     alignSelf: 'center',
+    flexDirection: 'row',
     // transform: [{ translateY: -10 }, { translateX: -150 }],
   },
   searchInput: {
