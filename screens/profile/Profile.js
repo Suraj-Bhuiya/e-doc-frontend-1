@@ -19,7 +19,7 @@ import MaterialIcon from 'react-native-vector-icons/MaterialIcons'
 import Octicons from 'react-native-vector-icons/Octicons'
 import MaterialCommunityIcon from 'react-native-vector-icons/MaterialCommunityIcons'
 import AvatarImg from '../../assets/avatar.png'
-import * as DocumentPicker from 'expo-document-picker'
+// import * as DocumentPicker from 'expo-document-picker'
 
 const Profile = ({ login, logout, upload_profile_pic }) => {
   const navigation = useNavigation()
@@ -47,24 +47,24 @@ const Profile = ({ login, logout, upload_profile_pic }) => {
     upload_profile_pic(doc, login)
   }
 
-  const handle_set_doc = useCallback(async () => {
-    // try {
-    const response = await DocumentPicker.getDocumentAsync({
-      presentationStyle: 'fullScreen',
-    })
-    setFile(response)
+  // const handle_set_doc = useCallback(async () => {
+  //   // try {
+  //   const response = await DocumentPicker.getDocumentAsync({
+  //     presentationStyle: 'fullScreen',
+  //   })
+  //   setFile(response)
 
-    handle_upload_profile_pic()
-    // const blob = await getBlob(file.uri)
-    // const doc = {
-    //   file: response,
-    //   blob: blob,
-    // }
-    // upload_profile_pic(doc, login)
-    // } catch (err) {
-    //   console.error(err, 'Form handle_set_doc')
-    // }
-  }, [])
+  //   handle_upload_profile_pic()
+  //   // const blob = await getBlob(file.uri)
+  //   // const doc = {
+  //   //   file: response,
+  //   //   blob: blob,
+  //   // }
+  //   // upload_profile_pic(doc, login)
+  //   // } catch (err) {
+  //   //   console.error(err, 'Form handle_set_doc')
+  //   // }
+  // }, [])
 
   return (
     <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>

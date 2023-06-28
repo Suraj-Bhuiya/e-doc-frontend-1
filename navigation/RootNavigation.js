@@ -31,6 +31,7 @@ import DocDetailContainer from '../containers/docDetail/DocDetailContainer'
 import ChooseLanguageContainer from '../containers/chooseLanguage/ChooseLanguageContainer'
 import TabNavigator from './TabNavigation'
 import AddDocContainer from '../containers/addDocContainer/AddDocContainer'
+import ChatContainer from '../containers/chatContainer/ChatContainer'
 
 const { Navigator, Screen } = createNativeStackNavigator()
 
@@ -80,6 +81,7 @@ const RootNavigation = ({
           <Screen name="Landing" children={() => <Landing />} />
           <Screen name="Login" children={() => <LoginContainer />} />
           <Screen name="Signup" children={() => <SignupContainer />} />
+
           <Screen name="Home" children={() => <TabNavigator />} />
 
           {/* <Screen name="Search" children={() => <SearchContainer />} />
@@ -98,6 +100,7 @@ const RootNavigation = ({
             children={() => <SearchResultContainer />}
           />
           <Screen name="DocDetail" children={() => <DocDetailContainer />} />
+          <Screen name="ChatPage" children={() => <ChatContainer />} />
         </Navigator>
       </NavigationContainer>
     )

@@ -1,4 +1,4 @@
-import { StatusBar } from 'expo-status-bar'
+// import { StatusBar } from 'expo-status-bar'
 import { TouchableWithoutFeedback, Keyboard, Text, View } from 'react-native'
 import { mapping, light as lightTheme } from '@eva-design/eva'
 // import { Button, Layout } from '@ui-kitten/components';
@@ -8,16 +8,27 @@ import React, { useEffect, useState } from 'react'
 import Login from './screens/login/Login'
 import Signup from './screens/signup/Signup'
 import RootNavigation from './navigation/RootNavigation'
-import * as Font from 'expo-font'
+// import * as Font from 'expo-font'
 import { Provider } from 'react-redux'
 import store from './store'
 import { firebaseConfig } from './config/firebaseConfig'
 import { initializeApp } from 'firebase/app'
 import SplashScreen from './screens/splashScreen/SplashScreen'
 import i18n from './languages/i18n'
+import { useFonts } from 'expo-font'
 
 const App = () => {
-  const [fontsLoaded, setFontsLoaded] = useState(false)
+  // const [fontsLoaded, setFontsLoaded] = useState(false)
+  const [fontsLoaded] = useFonts({
+    'MontserratAlternates-BlackItalic': require('./assets/fonts/MontserratAlternates-BlackItalic.ttf'),
+    'MontserratAlternates-Regular': require('./assets/fonts/MontserratAlternates-Regular.ttf'),
+    'MontserratAlternates-Medium': require('./assets/fonts/MontserratAlternates-Medium.ttf'),
+    'MontserratAlternates-Bold': require('./assets/fonts/MontserratAlternates-Bold.ttf'),
+    'MontserratAlternates-SemiBold': require('./assets/fonts/MontserratAlternates-SemiBold.ttf'),
+    'MontserratAlternates-Italic': require('./assets/fonts/MontserratAlternates-Italic.ttf'),
+    'MontserratAlternates-LightItalic': require('./assets/fonts/MontserratAlternates-LightItalic.ttf'),
+    'MontserratAlternates-MediumItalic': require('./assets/fonts/MontserratAlternates-MediumItalic.ttf'),
+  })
   const [isSplashScreen, setIsSpalshScreen] = useState(true)
 
   useEffect(() => {
@@ -36,17 +47,17 @@ const App = () => {
   }, [])
 
   const loadFonts = async () => {
-    await Font.loadAsync({
-      'MontserratAlternates-BlackItalic': require('./assets/fonts/MontserratAlternates-BlackItalic.ttf'),
-      'MontserratAlternates-Regular': require('./assets/fonts/MontserratAlternates-Regular.ttf'),
-      'MontserratAlternates-Medium': require('./assets/fonts/MontserratAlternates-Medium.ttf'),
-      'MontserratAlternates-Bold': require('./assets/fonts/MontserratAlternates-Bold.ttf'),
-      'MontserratAlternates-SemiBold': require('./assets/fonts/MontserratAlternates-SemiBold.ttf'),
-      'MontserratAlternates-Italic': require('./assets/fonts/MontserratAlternates-Italic.ttf'),
-      'MontserratAlternates-LightItalic': require('./assets/fonts/MontserratAlternates-LightItalic.ttf'),
-      'MontserratAlternates-MediumItalic': require('./assets/fonts/MontserratAlternates-MediumItalic.ttf'),
-    })
-    setFontsLoaded(true)
+    // await Font.loadAsync({
+    //   'MontserratAlternates-BlackItalic': require('./assets/fonts/MontserratAlternates-BlackItalic.ttf'),
+    //   'MontserratAlternates-Regular': require('./assets/fonts/MontserratAlternates-Regular.ttf'),
+    //   'MontserratAlternates-Medium': require('./assets/fonts/MontserratAlternates-Medium.ttf'),
+    //   'MontserratAlternates-Bold': require('./assets/fonts/MontserratAlternates-Bold.ttf'),
+    //   'MontserratAlternates-SemiBold': require('./assets/fonts/MontserratAlternates-SemiBold.ttf'),
+    //   'MontserratAlternates-Italic': require('./assets/fonts/MontserratAlternates-Italic.ttf'),
+    //   'MontserratAlternates-LightItalic': require('./assets/fonts/MontserratAlternates-LightItalic.ttf'),
+    //   'MontserratAlternates-MediumItalic': require('./assets/fonts/MontserratAlternates-MediumItalic.ttf'),
+    // })
+    // setFontsLoaded(true)
   }
 
   if (fontsLoaded && !isSplashScreen) {

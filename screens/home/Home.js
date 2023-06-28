@@ -27,11 +27,11 @@ import AntDesign from 'react-native-vector-icons/AntDesign'
 import Octicons from 'react-native-vector-icons/Octicons'
 import 'react-native-get-random-values'
 import { v4 as uuid } from 'uuid'
-import * as DocumentPicker from 'expo-document-picker'
+// import * as DocumentPicker from 'expo-document-picker'
 import moment from 'moment'
-import * as MediaLibrary from 'expo-media-library'
-import * as FileSystem from 'expo-file-system'
-import * as Permissions from 'expo-permissions'
+// import * as MediaLibrary from 'expo-media-library'
+// import * as FileSystem from 'expo-file-system'
+// import * as Permissions from 'expo-permissions'
 import LottieView from 'lottie-react-native'
 
 const Home = ({
@@ -57,7 +57,7 @@ const Home = ({
     return () => {
       setSearchWord('')
     }
-  }, [])
+  }, [login?.user?.uid])
 
   const handle_doc_detail = (doc) => {
     set_current_document(doc)
@@ -75,32 +75,34 @@ const Home = ({
     }
   }, [searchWord, document])
 
-  const downloadFile = (uri, name) => {
-    let fileUri = FileSystem.documentDirectory + `${name}.pdf`
-    console.log('FILEURI', fileUri)
-    FileSystem.downloadAsync(uri, fileUri)
-      .then(({ uri }) => {
-        console.log('URI', uri)
-        // Linking.openURL(uri)
-        saveFile(uri)
-      })
-      .catch((error) => {
-        console.error(error)
-      })
-  }
+  // const downloadFile = (uri, name) => {
+  //   let fileUri = FileSystem.documentDirectory + `${name}.pdf`
+  //   console.log('FILEURI', fileUri)
+  //   FileSystem.downloadAsync(uri, fileUri)
+  //     .then(({ uri }) => {
+  //       console.log('URI', uri)
+  //       // Linking.openURL(uri)
+  //       saveFile(uri)
+  //     })
+  //     .catch((error) => {
+  //       console.error(error)
+  //     })
+  // }
 
-  const saveFile = async (fileUri) => {
-    const { status } = await MediaLibrary.requestPermissionsAsync()
-    console.log('status', status)
-    if (status === 'granted') {
-      const asset = await MediaLibrary.createAssetAsync(fileUri).catch((err) =>
-        console.log('ERROR', err)
-      )
-      console.log('ASSET', asset)
+  // const saveFile = async (fileUri) => {
+  //   const { status } = await MediaLibrary.requestPermissionsAsync()
+  //   console.log('status', status)
+  //   if (status === 'granted') {
+  //     const asset = await MediaLibrary.createAssetAsync(fileUri).catch((err) =>
+  //       console.log('ERROR', err)
+  //     )
+  //     console.log('ASSET', asset)
 
-      await MediaLibrary.createAlbumAsync('Download', asset, false)
-    }
-  }
+  //     await MediaLibrary.createAlbumAsync('Download', asset, false)
+  //   }
+  // }
+
+  const saveFile = () => {}
 
   // const downloadFile = async (uri) => {
   //   const fileUri = `${FileSystem.documentDirectory}filenami.pdf`
@@ -174,14 +176,14 @@ const Home = ({
             />
           </View>
           <ScrollView style={styles.cardList}>
-            {filteredList.length === 0 && (
+            {filteredList?.length === 0 && (
               <View style={styles.noDoc}>
                 <Text style={styles.noDocText}>No Document To Show!!</Text>
 
                 <Image style={styles.noDocImage} source={NoResult} />
               </View>
             )}
-            {filteredList.length !== 0 &&
+            {filteredList?.length !== 0 &&
               filteredList?.map((item, i) => {
                 return (
                   <Animated.View
